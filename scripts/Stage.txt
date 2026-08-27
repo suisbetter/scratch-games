@@ -1,0 +1,58 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+camera = 
+counter = 0
+currentman = 
+currentwomen = 
+currentwomen2 = 
+goto man = CAM0
+goto women = CAM1
+goto women2 = CAM-2
+index = 0
+leftdoorstate = open
+leftlightstate = off
+listindex = 9
+menucounter = 0
+mousex = -29
+mousey = 180
+office = yes
+power = 95%
+previous cam man = 
+previous cam woman = 
+previous cam woman2 = 
+reset = 1
+rightdoorstate = open
+rightlightstate = off
+stop = 0
+time = 12 AM
+wait = 0
+
+
+//----- Lists ---------------------------------------------------------------------------------------------------------
+
+camlist = { 
+    CAM1
+    CAM2
+    CAM3
+    CAM4
+    CAM5
+    CAM6
+    CAM7
+    CAM8
+}
+manlist = { }
+woman2list = { }
+womanlist = { 
+    CAM1
+    CAM0
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+backdrop1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

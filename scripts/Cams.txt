@@ -1,0 +1,137 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    office = "yes";
+    List.DeleteAll(camlist);
+    listindex = 1;
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+    Looks.SwitchCostumeTo(CAM1);
+    Costume.GoToFrontBack(back);
+    Repeat (8)
+    {
+        List.Add(camlist, Operator.Join("CAM", listindex));
+        listindex += 1;
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(forever)
+{
+    mousex = Sensing.MouseX();
+    mousey = Sensing.MouseY();
+}
+
+WhenBroadcastReceived(forever)
+{
+    If (office == "yes")
+    {
+        camera = "";
+    }
+}
+
+WhenBroadcastReceived(forever)
+{
+    If (Sensing.MouseDown() And ((mousex > 120) And (mousex < 130)))
+    {
+        Looks.SwitchCostumeTo(CAM1);
+    }
+    If (Sensing.MouseDown() And ((mousex > 195) And (mousex < 210)))
+    {
+        Looks.SwitchCostumeTo(CAM2);
+    }
+    If ((Sensing.MouseDown() And ((mousex > 195) And (mousex < 210))) And ((mousey < -115) And (mousey > -139)))
+    {
+        Looks.SwitchCostumeTo(CAM4);
+    }
+    If ((Sensing.MouseDown() And ((mousex > 120) And (mousex < 130))) And ((mousey < -115) And (mousey > -139)))
+    {
+        Looks.SwitchCostumeTo(CAM3);
+    }
+    If ((Sensing.MouseDown() And ((mousex > 155) And (mousex < 175))) And ((mousey < -115) And (mousey > -139)))
+    {
+        Looks.SwitchCostumeTo(CAM5);
+    }
+    If ((Sensing.MouseDown() And ((mousex > 195) And (mousex < 210))) And ((mousey < -75) And (mousey > -90)))
+    {
+        Looks.SwitchCostumeTo(CAM6);
+    }
+    If ((Sensing.MouseDown() And ((mousex > 115) And (mousex < 135))) And ((mousey < -75) And (mousey > -90)))
+    {
+        Looks.SwitchCostumeTo(CAM7);
+    }
+    If ((Sensing.MouseDown() And ((mousex > 155) And (mousex < 175))) And ((mousey < -75) And (mousey > -90)))
+    {
+        Looks.SwitchCostumeTo(CAM8);
+    }
+}
+
+WhenBroadcastReceived(forever)
+{
+    If (office == "no")
+    {
+        camera = Costume.GetNumberName(name);
+    }
+}
+
+WhenBroadcastReceived(hide)
+{
+    Event.Broadcast("once");
+    Looks.Show();
+    office = "no";
+}
+
+WhenBroadcastReceived(once)
+{
+    Motion.GoToXY(0, 0);
+    Looks.SwitchCostumeTo(CAM1);
+    Costume.GoToFrontBack(back);
+    Forever
+    {
+        Control.Wait(1);
+        Repeat (7)
+        {
+            Control.Wait(0.1);
+            Motion.ChangeXBy(-5);
+        }
+        Control.Wait(1);
+        Repeat (14)
+        {
+            Control.Wait(0.1);
+            Motion.ChangeXBy(5);
+        }
+        Control.Wait(1);
+        Repeat (7)
+        {
+            Control.Wait(0.1);
+            Motion.ChangeXBy(-5);
+        }
+        Control.Wait(1);
+    }
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Hide();
+    office = "yes";
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+CAM1.svg
+CAM2.svg
+CAM3.svg
+CAM4.svg
+CAM5.svg
+CAM6.svg
+CAM7.svg
+CAM8.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

@@ -1,0 +1,35 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SetSizeTo(50);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(forever)
+{
+    Motion.GoToXY(121, -71);
+}
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

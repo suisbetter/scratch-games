@@ -1,0 +1,78 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    menucounter = 0;
+    Motion.GoToXY(36, 28);
+    Looks.SetSizeTo(100);
+    Looks.SwitchCostumeTo(costume1);
+    Looks.Show();
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(space)
+{
+    Control.Wait(0.1);
+    If (menucounter == 1)
+    {
+        Event.Broadcast("hide");
+        Looks.SwitchCostumeTo(costume2);
+        Motion.GoToXY(36, 28);
+    }
+    If (menucounter == 2)
+    {
+        Event.Broadcast("show");
+    }
+}
+
+WhenKeyPressed(space)
+{
+    menucounter += 1;
+}
+
+
+//----- Sprite clicked events -----------------------------------------------------------------------------------------
+
+WhenThisSpriteClicked()
+{
+    menucounter += 1;
+}
+
+WhenThisSpriteClicked()
+{
+    Control.Wait(0.1);
+    If (menucounter == 1)
+    {
+        Event.Broadcast("hide");
+        Looks.SwitchCostumeTo(costume2);
+        Motion.GoToXY(36, 28);
+    }
+    If (menucounter == 2)
+    {
+        Event.Broadcast("show");
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(show)
+{
+    Control.Wait(0.01);
+    Looks.SwitchCostumeTo(costume1);
+    Motion.GoToXY(36, 28);
+    menucounter = 0;
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

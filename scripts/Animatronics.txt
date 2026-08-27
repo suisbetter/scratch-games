@@ -1,0 +1,325 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    power = "100%";
+    time = "12 AM";
+    wait = 0;
+    currentman = "";
+    currentwomen = "";
+    currentwomen2 = "";
+    previous cam man = "";
+    previous cam woman = "";
+    previous cam woman2 = "";
+    Control.Wait(5);
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        Motion.GoTo(Cams);
+    }
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(w)
+{
+    List.Show(camlist);
+}
+
+WhenKeyPressed(s)
+{
+    List.Hide(camlist);
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(death)
+{
+    Control.Wait(2);
+    Sound.Play(Big Boing);
+    Motion.GoToXY(0, 0);
+    Looks.SwitchCostumeTo(man);
+    Looks.SetEffectTo(GHOST, 0);
+    Looks.Show();
+    Repeat (10)
+    {
+        Motion.GoTo(_random_);
+    }
+}
+
+WhenBroadcastReceived(forever)
+{
+    Wait Until (wait == 0);
+    If (camera == "CAM1")
+    {
+        If ((camera == "CAM1") And Operator.Contains(camlist[1], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM1") And Operator.Contains(camlist[1], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM1") And Operator.Contains(camlist[1], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM2")
+    {
+        If ((camera == "CAM2") And Operator.Contains(camlist[2], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM2") And Operator.Contains(camlist[2], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM2") And Operator.Contains(camlist[2], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM3")
+    {
+        If ((camera == "CAM3") And Operator.Contains(camlist[3], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM3") And Operator.Contains(camlist[3], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM3") And Operator.Contains(camlist[3], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM4")
+    {
+        If ((camera == "CAM4") And Operator.Contains(camlist[4], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM4") And Operator.Contains(camlist[4], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM4") And Operator.Contains(camlist[4], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM5")
+    {
+        If ((camera == "CAM5") And Operator.Contains(camlist[5], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM5") And Operator.Contains(camlist[5], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM5") And Operator.Contains(camlist[5], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM6")
+    {
+        If ((camera == "CAM6") And Operator.Contains(camlist[6], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM6") And Operator.Contains(camlist[6], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM6") And Operator.Contains(camlist[6], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM7")
+    {
+        If ((camera == "CAM7") And Operator.Contains(camlist[7], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM7") And Operator.Contains(camlist[7], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM7") And Operator.Contains(camlist[7], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+    If (camera == "CAM8")
+    {
+        If ((camera == "CAM8") And Operator.Contains(camlist[8], "man"))
+        {
+            Looks.SwitchCostumeTo(man);
+            Stop(this script);
+        }
+        If ((camera == "CAM8") And Operator.Contains(camlist[8], "women1"))
+        {
+            Looks.SwitchCostumeTo(women1);
+            Stop(this script);
+        }
+        If ((camera == "CAM8") And Operator.Contains(camlist[8], "women2"))
+        {
+            Looks.SwitchCostumeTo(women2);
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(1);
+    }
+}
+
+WhenBroadcastReceived(reset pos)
+{
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define rng man(string goto) (warp=false)
+{
+    Looks.SwitchCostumeTo(man);
+    goto man = goto;
+    previous cam man = goto man;
+    List.Add(manlist, Operator.Join("CAM", (Operator.LetterOf(goto man, 4) + -1)));
+    List.Add(manlist, Operator.Join("CAM", (Operator.LetterOf(goto man, 4) + -2)));
+    goto man = manlist[Operator.Random(List.IndexOf(manlist, manlist[2]) , List.IndexOf(manlist, manlist[1]))];
+    List.ReplaceItem(camlist, Operator.LetterOf(goto man, 4), Operator.Join(Costume.GetNumberName(name), Operator.Join("(", Operator.Join(goto man, ")"))));
+    List.ReplaceItem(camlist, Operator.LetterOf(previous cam man, 4), goto);
+    wait = 0;
+    Control.Wait(1);
+    List.DeleteAll(manlist);
+    Looks.SwitchCostumeTo(1);
+}
+
+Define rng women(string goto) (warp=false)
+{
+    Looks.SwitchCostumeTo(women1);
+    goto women = goto;
+    previous cam woman = goto women;
+    List.Add(womanlist, Operator.Join("CAM", (Operator.LetterOf(goto women, 4) + -1)));
+    List.Add(womanlist, Operator.Join("CAM", (Operator.LetterOf(goto women, 4) + -2)));
+    goto women = womanlist[Operator.Random(List.IndexOf(womanlist, womanlist[2]) , List.IndexOf(womanlist, womanlist[1]))];
+    currentwomen = goto women;
+    List.ReplaceItem(camlist, Operator.LetterOf(goto women, 4), Operator.Join(Costume.GetNumberName(name), Operator.Join("(", Operator.Join(goto women, ")"))));
+    wait = 0;
+    Control.Wait(1);
+    List.DeleteAll(womanlist);
+    Looks.SwitchCostumeTo(1);
+}
+
+Define rngwomen2(string goto) (warp=false)
+{
+    Looks.SwitchCostumeTo(women2);
+    goto women2 = goto;
+    previous cam woman2 = goto women2;
+    List.Add(woman2list, Operator.Join("CAM", (Operator.LetterOf(goto women2, 4) + -1)));
+    List.Add(woman2list, Operator.Join("CAM", (Operator.LetterOf(goto women2, 4) + -2)));
+    goto women2 = woman2list[Operator.Random(List.IndexOf(woman2list, woman2list[2]) , List.IndexOf(woman2list, woman2list[1]))];
+    List.ReplaceItem(camlist, Operator.LetterOf(goto women2, 4), Operator.Join(Costume.GetNumberName(name), Operator.Join("(", Operator.Join(goto women2, ")"))));
+    List.ReplaceItem(camlist, Operator.LetterOf(previous cam woman2, 4), goto);
+    wait = 0;
+    Control.Wait(1);
+    List.DeleteAll(woman2list);
+    Looks.SwitchCostumeTo(1);
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Control.CreateCloneOf(_myself_);
+
+Call rng man("CAM4");
+Call rng women("CAM3");
+Call rngwomen2("CAM5");
+Repeat Until (power == "0%")
+{
+    Control.Wait(4);
+    Call rng man(Operator.Join("CAM", (previous cam man + Operator.Random(-2 , 2))));
+    Call rng women(Operator.Join("CAM", (previous cam woman + Operator.Random(-2 , 2))));
+    Call rngwomen2(Operator.Join("CAM", (previous cam woman2 + Operator.Random(-2 , 2))));
+}
+
+Call rng man(Operator.Join("CAM", (previous cam man + Operator.Random(-1 , 2))));
+Call rng women(Operator.Join("CAM", (previous cam woman + Operator.Random(-1 , 2))));
+Call rngwomen2(Operator.Join("CAM", (previous cam woman2 + Operator.Random(-1 , 2))));
+Control.Wait(1);
+reset = 0;
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+1.svg
+man.svg
+women1.svg
+women2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Big Boing.wav
+pop.wav

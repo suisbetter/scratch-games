@@ -1,0 +1,297 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Show();
+    reset = 0;
+    stop = 0;
+    counter = 0;
+    Costume.GoToFrontBack(back);
+    Looks.SwitchCostumeTo(costume1);
+    Motion.GoToXY(0, 0);
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 30)) / 1.16));
+        Event.Broadcast("forever");
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Repeat Until (time == "6 AM")
+    {
+        Control.Wait(60);
+        time = Operator.Join((Operator.Join(Operator.LetterOf(time, 1), Operator.LetterOf(time, 2)) + 1), " AM");
+        If (time == "13 AM")
+        {
+            time = "1 AM";
+        }
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Repeat Until ((power == "0%") Or (stop == 1))
+    {
+        Control.Wait(6);
+        If (Variable.Length(power) == 2)
+        {
+            stop = 1;
+        }
+        If ((rightdoorstate == "closed") Or (leftdoorstate == "closed"))
+        {
+            power = Operator.Join((Operator.Join(Operator.LetterOf(power, 1), Operator.LetterOf(power, 2)) - 1), "%");
+            Control.Wait(5);
+            power = Operator.Join((Operator.Join(Operator.LetterOf(power, 1), Operator.LetterOf(power, 2)) - 1), "%");
+        }
+        Else
+        {
+            If (Operator.LetterOf(power, 4) == "")
+            {
+                power = Operator.Join((Operator.Join(Operator.LetterOf(power, 1), Operator.LetterOf(power, 2)) - 1), "%");
+            }
+            Else
+            {
+                power = Operator.Join((Operator.Join(Operator.LetterOf(power, 1), Operator.Join(Operator.LetterOf(power, 2), Operator.LetterOf(power, 3))) - 1), "%");
+            }
+        }
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If (power == "-1%")
+        {
+            power = "8%";
+            Repeat Until (power == "0%")
+            {
+                Control.Wait(3);
+                power = Operator.Join((Operator.LetterOf(power, 1) - 1), "%");
+            }
+        }
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If (power == "0%")
+        {
+            Event.Broadcast("death");
+            Stop(all);
+        }
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(death)
+{
+    Looks.SwitchCostumeTo(costume1);
+}
+
+WhenBroadcastReceived(forever)
+{
+    If ((leftdoorstate == "closed") Or (rightdoorstate == "closed"))
+    {
+        If (leftdoorstate == "closed")
+        {
+            Stop(this script);
+        }
+        If (rightdoorstate == "closed")
+        {
+            Stop(this script);
+        }
+    }
+    Else
+    {
+        If (Operator.Contains(camlist[1], "man") Or (Operator.Contains(camlist[1], "women1") Or Operator.Contains(camlist[1], "women2")))
+        {
+            Looks.SwitchCostumeTo(costume8);
+            Sound.Play(fnaf-2-ambience-sound-effect);
+            Stop(this script);
+        }
+        Else
+        {
+            If (Operator.Contains(camlist[2], "man") Or (Operator.Contains(camlist[2], "women1") Or Operator.Contains(camlist[2], "women2")))
+            {
+                Looks.SwitchCostumeTo(costume9);
+                Sound.Play(fnaf-2-ambience-sound-effect);
+                Stop(this script);
+            }
+        }
+    }
+}
+
+WhenBroadcastReceived(forever)
+{
+    Forever
+    {
+        If ((Costume.GetNumberName(number) == 8) Or (Costume.GetNumberName(number) == 9))
+        {
+            Event.Broadcast("reset");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(forever)
+{
+    If ((Sensing.Timer() > 10) And ((Costume.GetNumberName(number) == 8) Or (Costume.GetNumberName(number) == 9)))
+    {
+        Event.Broadcast("death");
+        reset = 2;
+        Stop(all);
+    }
+    If (((reset == 0) And (Sensing.Timer() > 10)) And (Not ((reset == 2))))
+    {
+        reset = 1;
+        Event.Broadcast("reset pos");
+        Stop(this script);
+    }
+}
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(left door)
+{
+}
+
+WhenBroadcastReceived(left door)
+{
+    If (rightdoorstate == "closed")
+    {
+        Stop(this script);
+    }
+    Else
+    {
+        If (leftdoorstate == "closed")
+        {
+            Looks.SwitchCostumeTo(costume4);
+            Control.Wait(0.01);
+            Looks.SwitchCostumeTo(costume5);
+        }
+        Else
+        {
+            Looks.SwitchCostumeTo(costume4);
+            Control.Wait(0.01);
+            Looks.SwitchCostumeTo(costume1);
+        }
+    }
+}
+
+WhenBroadcastReceived(left light)
+{
+    If (leftlightstate == "on")
+    {
+        Looks.SwitchCostumeTo(costume2);
+        Control.Wait(2);
+        Looks.SwitchCostumeTo(costume1);
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(costume1);
+    }
+}
+
+WhenBroadcastReceived(reset)
+{
+    Wait Until (reset == 0);
+    Sensing.ResetTimer();
+    reset += 1;
+}
+
+WhenBroadcastReceived(right door)
+{
+    If (counter == 1)
+    {
+        Stop(this script);
+    }
+    Else
+    {
+        If (rightdoorstate == "closed")
+        {
+            Looks.SwitchCostumeTo(costume6);
+            Control.Wait(0.001);
+            Looks.SwitchCostumeTo(costume7);
+            counter = 1;
+        }
+    }
+}
+
+WhenBroadcastReceived(right light)
+{
+    If (rightlightstate == "on")
+    {
+        Looks.SwitchCostumeTo(costume3);
+        Control.Wait(2);
+        Looks.SwitchCostumeTo(costume1);
+        Control.CreateCloneOf(Light);
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(costume1);
+    }
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Show();
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+If (((Costume.GetNumberName(number) == 7) And (counter == 1)) And (leftdoorstate == "closed"))
+{
+    Looks.SwitchCostumeTo(costume12);
+    Control.Wait(0.01);
+    Looks.SwitchCostumeTo(costume13);
+}
+Else
+{
+    Looks.SwitchCostumeTo(costume12);
+    Control.Wait(0.01);
+    Looks.SwitchCostumeTo(costume7);
+}
+
+Wait Until (rightdoorstate == "closed");
+If (counter == 1)
+{
+    Looks.SwitchCostumeTo(costume6);
+    Control.Wait(0.001);
+    Looks.SwitchCostumeTo(costume1);
+    counter = 0;
+    rightdoorstate = "open";
+    Stop(this script);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+costume3.svg
+costume4.svg
+costume5.svg
+costume6.svg
+costume7.svg
+costume8.svg
+costume9.svg
+costume10.svg
+costume11.svg
+costume12.svg
+costume13.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+fnaf-2-ambience-sound-effect.mp3
+pop.wav

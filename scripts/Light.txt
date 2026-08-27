@@ -1,0 +1,80 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Show();
+    Looks.SwitchCostumeTo(costume1);
+    rightlightstate = "off";
+    leftlightstate = "off";
+    Control.CreateCloneOf(_myself_);
+    Forever
+    {
+        Motion.GoToXY(Sensing.Of(x position, Office), Sensing.Of(y position, Office));
+    }
+}
+
+
+//----- Sprite clicked events -----------------------------------------------------------------------------------------
+
+WhenThisSpriteClicked()
+{
+    If (rightlightstate == "on")
+    {
+        Stop(this script);
+    }
+    Else
+    {
+        leftlightstate = "on";
+        Looks.SwitchCostumeTo(costume2);
+        Event.Broadcast("left light");
+        Control.Wait(2);
+        Looks.SwitchCostumeTo(costume1);
+        leftlightstate = "off";
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Show();
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    Forever
+    {
+        Motion.GoToXY((Sensing.Of(x position, Office) + 337), Sensing.Of(y position, Office));
+    }
+}
+
+Control.WhenIStartAsClone()
+{
+    Wait Until (Sensing.MouseDown() And Sensing.TouchingObject(_mouse_));
+    rightlightstate = "on";
+    Looks.SwitchCostumeTo(costume2);
+    Event.Broadcast("right light");
+    Control.Wait(2);
+    Looks.SwitchCostumeTo(costume1);
+    rightlightstate = "off";
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

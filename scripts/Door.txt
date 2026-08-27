@@ -1,0 +1,104 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Show();
+    Looks.SwitchCostumeTo(costume2);
+    index = 0;
+    rightdoorstate = "open";
+    leftdoorstate = "open";
+    Control.CreateCloneOf(_myself_);
+    Forever
+    {
+        Motion.GoToXY(Sensing.Of(x position, Office), (Sensing.Of(y position, Office) + 30));
+    }
+}
+
+
+//----- Sprite clicked events -----------------------------------------------------------------------------------------
+
+WhenThisSpriteClicked()
+{
+    Control.Wait(0.1);
+    If (rightdoorstate == "closed")
+    {
+        Stop(this script);
+    }
+    Else
+    {
+        If (leftdoorstate == "closed")
+        {
+            Looks.SwitchCostumeTo(costume2);
+            leftdoorstate = "open";
+            Event.Broadcast("left door");
+            Stop(this script);
+        }
+        leftdoorstate = "closed";
+        Event.Broadcast("left door");
+        Looks.SwitchCostumeTo(costume1);
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Show();
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    Forever
+    {
+        Motion.GoToXY((Sensing.Of(x position, Office) + 337), (Sensing.Of(y position, Office) + 30));
+    }
+}
+
+Control.WhenIStartAsClone()
+{
+    Looks.SwitchCostumeTo(costume2);
+    Forever
+    {
+        Wait Until (Sensing.TouchingObject(_mouse_) And Sensing.MouseDown());
+        If (rightdoorstate == "closed")
+        {
+            Looks.SwitchCostumeTo(costume2);
+            Control.CreateCloneOf(_myself_);
+            Event.Broadcast("right door");
+        }
+        rightdoorstate = "closed";
+        Looks.SwitchCostumeTo(costume1);
+        Control.CreateCloneOf(_myself_);
+        Event.Broadcast("right door");
+    }
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+index += 1;
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav
