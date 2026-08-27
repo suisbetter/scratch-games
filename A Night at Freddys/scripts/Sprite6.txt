@@ -1,0 +1,95 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    actual funtime auditorium = 0;
+    Looks.SwitchCostumeTo(costume1);
+    Motion.GoToXY(36, 28);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    Control.Wait(0.5);
+    actual funtime auditorium += 1;
+}
+
+WhenBroadcastReceived(scooping room)
+{
+    Looks.SwitchCostumeTo(costume1);
+    Control.Wait(1);
+    Looks.Show();
+    Control.Wait(0.5);
+    Sound.PlayUntilDone(recording1);
+    Control.Wait(0.5);
+    Sound.Play(Sunday, 1h49m PM);
+    Looks.SwitchCostumeTo(costume3);
+    Control.Wait(4.5);
+    Looks.NextCostume();
+    Control.Wait(4);
+    Looks.NextCostume();
+    Control.Wait(4.5);
+    Looks.NextCostume();
+    Control.Wait(5);
+    Looks.NextCostume();
+    Control.Wait(5);
+    Looks.NextCostume();
+    Control.Wait(5);
+    Looks.NextCostume();
+    Control.Wait(5);
+    Looks.NextCostume();
+    Control.Wait(5);
+    Looks.NextCostume();
+    Control.Wait(0.5);
+    Looks.SwitchCostumeTo(costume2);
+    Sound.Play(The Scooping Room_ Five nights at Freddy’s sister Location-trimmed);
+    Control.Wait(7);
+    Looks.SwitchCostumeTo(costume12);
+    Control.Wait(11);
+    Looks.SwitchCostumeTo(costume14);
+    Control.Wait(20);
+    Looks.Hide();
+    prm = 0;
+    fntme = 0;
+}
+
+WhenBroadcastReceived(show broadcast sprite)
+{
+    Looks.Show();
+    Looks.SwitchCostumeTo(Heart Purple);
+    Sound.Play(Sunday, 7h53m AM);
+    Control.Wait(4.8);
+    Looks.SwitchCostumeTo(Heart Purple 2);
+    Control.Wait(4.04);
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+costume3.svg
+costume4.svg
+costume5.svg
+costume6.svg
+costume7.svg
+costume8.svg
+costume9.svg
+costume10.svg
+costume11.svg
+costume12.svg
+costume14.svg
+Heart Purple.svg
+Heart Purple 2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+recording1.wav
+Sunday, 1h49m PM.wav
+Sunday, 7h53m AM.wav
+The Scooping Room_ Five nights at Freddy’s sister Location-trimmed.mp3

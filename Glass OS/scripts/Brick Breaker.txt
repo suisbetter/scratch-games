@@ -1,0 +1,77 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If ((When Pin 1 Pressed == 2) And (Verification == 1))
+        {
+            Event.Broadcast("Open Game");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-26816697);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If ((When Pin 1 Pressed == 2) And (Verification == 1))
+        {
+            Event.Broadcast("Open Game");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Delete)
+{
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-26816697);
+    Verification = 0;
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(More Highlighted)
+{
+    Wait Until (Test == 0);
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-2);
+    Verification += 1;
+    Sound.PlayUntilDone(recording1);
+}
+
+WhenBroadcastReceived(Open Game)
+{
+    Looks.SwitchBackdropTo(backdrop5);
+    Game += 1;
+    Test = 0;
+    Control.Wait(1);
+    Looks.SwitchBackdropTo(backdrop5);
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Verification = 0;
+
+Event.Broadcast("Open Game");
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+computer-testing-icon-vector-2.svg
+computer-testing-icon-vector-26816697.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+recording1.wav

@@ -1,0 +1,41 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    entered = 0;
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    Looks.Hide();
+    Sound.PlayUntilDone(Door-Me_58G_HD2-29632);
+}
+
+WhenBroadcastReceived(entering the funtimes)
+{
+    Looks.Show();
+    Repeat Until (entered == 1)
+    {
+        Motion.GoTo(_mouse_);
+    }
+}
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+arrow1-d.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Door-Me_58G_HD2-29632.mp3
+pop.wav

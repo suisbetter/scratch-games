@@ -1,0 +1,26 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Dashboard)
+{
+    Looks.Show();
+    Repeat Until (Hide == 2)
+    {
+        Looks.Say(Operator.Join(Sensing.Current(MONTH), Operator.Join("", Operator.Join(Operator.Join("/", Sensing.Current(DATE)), Operator.Join("/", Sensing.Current(YEAR))))));
+    }
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Hide += 1;
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+apple.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Chomp.wav

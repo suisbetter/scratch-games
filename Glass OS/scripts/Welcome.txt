@@ -1,0 +1,78 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Load1Done)
+{
+    Looks.SwitchCostumeTo(Welcome);
+    Control.Wait(2.3);
+    Looks.Show();
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, -5);
+    }
+    Control.Wait(1);
+    Repeat (27)
+    {
+        Looks.NextCostume();
+    }
+}
+
+WhenBroadcastReceived(Loading Guest mode)
+{
+    Event.Broadcast("Hide 2 Sprites");
+    Repeat (27)
+    {
+        Looks.SwitchCostumeTo((Costume.GetNumberName(number) - 1));
+    }
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, 5);
+    }
+    Event.Broadcast("LGM Complete");
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Welcome.png
+Welcome2.png
+Welcome3.png
+Welcome4.png
+Welcome5.png
+Welcome6.png
+Welcome7.png
+Welcome8.png
+Welcome9.png
+Welcome10.png
+Welcome11.png
+Welcome12.png
+Welcome13.png
+Welcome14.png
+Welcome15.png
+Welcome16.png
+Welcome17.png
+Welcome18.png
+Welcome19.png
+Welcome20.png
+Welcome21.png
+Welcome22.png
+Welcome23.png
+Welcome24.png
+Welcome25.png
+Welcome26.png
+Welcome27.png
+Welcome28.png

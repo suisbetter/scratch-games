@@ -1,0 +1,93 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Hide();
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If ((When Pin 0 Pressed == 1) And (When Pin 1 Pressed == 1))
+        {
+            Event.Broadcast("Load Guest Mode");
+            Stop(all);
+        }
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide 2 Sprites)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Load1Done)
+{
+    Control.Wait(6);
+    Costume.GoToFrontBack(front);
+    Looks.Show();
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, -5);
+    }
+}
+
+WhenBroadcastReceived(Load1Random)
+{
+    Repeat Until (OS Opening == 0)
+    {
+        If ((When Pin 0 Pressed == 1) And (When Pin 1 Pressed == 1))
+        {
+            Looks.SwitchCostumeTo(costume2);
+        }
+        If (Not (((When Pin 0 Pressed == 1) And (When Pin 1 Pressed == 1))))
+        {
+            Looks.SwitchCostumeTo(costume1);
+        }
+    }
+}
+
+WhenBroadcastReceived(Load Guest Mode)
+{
+    Event.Broadcast("Ghost Effect 100");
+    Event.Broadcast("Loading Guest mode");
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, 5);
+    }
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Restart)
+{
+    Forever
+    {
+        If ((When Pin 0 Pressed == 1) And (When Pin 1 Pressed == 1))
+        {
+            Event.Broadcast("Load Guest Mode");
+            Stop(all);
+        }
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

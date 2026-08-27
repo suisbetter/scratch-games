@@ -1,0 +1,46 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(GameOver)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Open Game)
+{
+    Looks.Show();
+    Looks.Hide();
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    Looks.Show();
+    Motion.GoToXY(PowerupSpawnX, PowerupSpawnY);
+    Repeat Until (Motion.YPosition() < 175)
+    {
+        Motion.ChangeYBy(-5);
+        If Sensing.TouchingObject(Paddle)
+        {
+            Event.Broadcast("Spawn Extra Ball");
+            Control.DeleteThisClone();
+        }
+    }
+    Control.DeleteThisClone();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

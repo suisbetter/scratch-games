@@ -1,0 +1,55 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SwitchCostumeTo(costume1);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(door opening)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(night 1)
+{
+    Control.Wait(29);
+    Motion.GoToXY(36, 28);
+    Looks.Show();
+    Sound.PlayUntilDone(recording1);
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(costume2);
+    Sound.PlayUntilDone(Friday, 9h14m PM);
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(costume3);
+    Sound.PlayUntilDone(recording2);
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(costume4);
+    Sound.PlayUntilDone(Friday, 9h37m PM);
+    Control.Wait(1);
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+costume3.svg
+costume4.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Friday, 9h14m PM.wav
+Friday, 9h37m PM.mp3
+pop.wav
+recording1.wav
+recording2.wav

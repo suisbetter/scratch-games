@@ -1,0 +1,127 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    circus control = 0;
+    Looks.ClearGraphicEffects();
+    Looks.SetSizeTo(150);
+    Looks.Hide();
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(w)
+{
+    Repeat (15)
+    {
+        Looks.NextCostume();
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (actual funtime auditorium == 1);
+    Wait Until (start sound == 1);
+    Wait Until (circus control == 0);
+    Wait Until (go == 1);
+    Forever
+    {
+        If (Not (Sensing.KeyPressed(w)))
+        {
+            Wait Until (go == 1);
+            Sound.StopAllSounds();
+        }
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (start sound == 1);
+    Wait Until (circus control == 0);
+    Wait Until (funtime auditorium == 0);
+    Sound.PlayUntilDone(Metal_duct_fast);
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (start sound == 1);
+    Wait Until (circus control == 0);
+    Wait Until (funtime auditorium == 0);
+    Control.Wait(1);
+    Repeat (1)
+    {
+        Control.Wait(18);
+        Event.Broadcast("primary control module");
+        Stop(this script);
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 40)) / 1.18));
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Forever
+    {
+        Motion.SetY(((Motion.YPosition() - ((Sensing.MouseY() + Motion.YPosition()) / 40)) / 1.18));
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(go inside)
+{
+    Looks.Show();
+    Looks.SetSizeTo(150);
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Control.Wait(0.5);
+    Sound.StopAllSounds();
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Repeat (10)
+    {
+        Control.Wait(0.001);
+        Looks.ChangeEffectBy(GHOST, 25);
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Venting.png
+Venting2.png
+Venting3.png
+Venting4.png
+Venting5.png
+Venting6.png
+Venting7.png
+Venting8.png
+Venting9.png
+Venting10.png
+Venting11.png
+Venting12.png
+Venting13.png
+Venting14.png
+Venting15.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Metal_duct_fast.mp3

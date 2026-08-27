@@ -1,0 +1,49 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SetSizeTo(190);
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(door opening)
+{
+    Looks.SetSizeTo(190);
+    Looks.Show();
+    Control.Wait(0.5);
+    Sound.Play(Five Nights At Freddy's_ Sister Location Door Sound);
+    Repeat (12)
+    {
+        Looks.NextCostume();
+    }
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+OpenElevator.png
+OpenElevator2.png
+OpenElevator3.png
+OpenElevator4.png
+OpenElevator5.png
+OpenElevator6.png
+OpenElevator7.png
+OpenElevator8.png
+OpenElevator9.png
+OpenElevator10.png
+OpenElevator11.png
+OpenElevator12.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Five Nights At Freddy's_ Sister Location Door Sound.wav

@@ -1,0 +1,95 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.ClearGraphicEffects();
+    Looks.SwitchCostumeTo(ezgif-6-e999e03f34);
+    Looks.Hide();
+}
+
+
+//----- Sprite clicked events -----------------------------------------------------------------------------------------
+
+WhenThisSpriteClicked()
+{
+    Event.Broadcast("door opening");
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(door opening)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(door opening)
+{
+    Sound.StopAllSounds();
+}
+
+WhenBroadcastReceived(night 1)
+{
+    Control.Wait(115.5);
+    Event.Broadcast("go dark");
+}
+
+WhenBroadcastReceived(night 1)
+{
+    Control.Wait(25.5);
+    Event.Broadcast("night 1 start");
+    Sound.Play(FNAF Sister Location - Elevator Ambience Extended-[AudioTrimmer);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Show();
+    Looks.SetSizeTo(200);
+    Repeat (1000)
+    {
+        Repeat (10)
+        {
+            Looks.NextCostume();
+        }
+    }
+}
+
+WhenBroadcastReceived(night 1 start)
+{
+    Repeat (10)
+    {
+        Looks.ChangeEffectBy(GHOST, -10);
+    }
+}
+
+WhenBroadcastReceived(night 1 start)
+{
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 40)) / 1.18));
+    }
+}
+
+WhenBroadcastReceived(night 1 start)
+{
+    Forever
+    {
+        Motion.SetY(((Motion.YPosition() - ((Sensing.MouseY() + Motion.YPosition()) / 40)) / 1.18));
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+ezgif-6-e999e03f34.png
+ezgif-6-e999e03f342.png
+ezgif-6-e999e03f343.png
+ezgif-6-e999e03f344.png
+ezgif-6-e999e03f345.png
+ezgif-6-e999e03f346.png
+ezgif-6-e999e03f347.png
+ezgif-6-e999e03f348.png
+ezgif-6-e999e03f349.png
+ezgif-6-e999e03f3410.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+FNAF Sister Location - Elevator Ambience Extended-[AudioTrimmer.mp3

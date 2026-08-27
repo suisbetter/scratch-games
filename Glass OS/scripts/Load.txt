@@ -1,0 +1,61 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide 2 Sprites)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Load1Random)
+{
+    Control.Wait(Operator.Random(3 , 4));
+    Event.Broadcast("Load1Done");
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, 15);
+    }
+}
+
+WhenBroadcastReceived(OS Opening)
+{
+    Control.Wait(3);
+    Looks.SetEffectTo(GHOST, 0);
+    Looks.Show();
+    Event.Broadcast("Load1Random");
+    Forever
+    {
+        Motion.TurnRight(10);
+    }
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Repeat (100)
+{
+    Looks.ChangeEffectBy(GHOST, 15);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

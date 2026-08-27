@@ -1,0 +1,36 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(GameOver)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Open Game)
+{
+    Looks.Show();
+    Motion.GoToXY(0, -170);
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+microbit_whenPinConnected ?? - probably legacy function from Scratch 2.0
+
+microbit_whenPinConnected ?? - probably legacy function from Scratch 2.0
+
+Event.Broadcast("GameOver");
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

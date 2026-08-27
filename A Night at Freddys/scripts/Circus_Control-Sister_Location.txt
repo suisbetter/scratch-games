@@ -1,0 +1,93 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    circus control 2 = 0;
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.SetSizeTo(130);
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 40)) / 1.18));
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        Motion.SetY(((Motion.YPosition() - ((Sensing.MouseY() + Motion.YPosition()) / 40)) / 1.18));
+    }
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(b)
+{
+    Event.Broadcast("go back");
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(in circus control)
+{
+    Sound.Play(Door-Me_58G_HD2-29632);
+    Looks.Show();
+    Looks.SetSizeTo(140);
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, -10);
+    }
+    Sound.PlayUntilDone(recording1);
+    Control.Wait(2);
+    Sound.PlayUntilDone(Circus_Baby_Dialogue_-_Night_2_-_Part_1);
+    Control.Wait(2);
+    Sound.PlayUntilDone(recording2);
+    Control.Wait(2);
+    Sound.PlayUntilDone(Circus_Baby_Dialogue_-_Night_3_-_Part_1);
+    Control.Wait(2);
+    Sound.PlayUntilDone(recording3);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Circus_Control-Sister_Location.png
+Circus_Control-Sister_Location2.png
+Circus_Control-Sister_Location3.png
+Circus_Control-Sister_Location4.png
+Circus_Control-Sister_Location5.png
+Circus_Control-Sister_Location6.png
+Circus_Control-Sister_Location7.png
+Circus_Control-Sister_Location8.png
+Circus_Control-Sister_Location9.png
+Circus_Control-Sister_Location10.png
+Circus_Control-Sister_Location11.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Circus_Baby_Dialogue_-_Night_2_-_Part_1.wav
+Circus_Baby_Dialogue_-_Night_3_-_Part_1.mp3
+Door-Me_58G_HD2-29632.mp3
+recording1.wav
+recording2.wav
+recording3.wav

@@ -1,0 +1,39 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(GameOver)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Open Game)
+{
+    Looks.Show();
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+}
+
+WhenBroadcastReceived(Restart)
+{
+    Looks.Hide();
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+When Pin 0 Pressed = 0;
+When Pin 1 Pressed = 0;
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

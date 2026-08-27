@@ -1,0 +1,36 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(door opening)
+{
+    Forever
+    {
+        If (Sensing.MouseDown() And Sensing.TouchingObject(_mouse_))
+        {
+            Event.Broadcast("go inside");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(go inside)
+{
+    start sound += 1;
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+pufferfish-a.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+ocean wave.wav

@@ -1,0 +1,148 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+isOriginalSprite? = yes
+isStationaryClone? = no
+xVel = 0
+yVel = 0
+
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Delete Stationary Clones)
+{
+    If (isStationaryClone? == "yes")
+    {
+        BallCount += -1;
+        Call CheckGameOver;
+        Control.DeleteThisClone();
+    }
+}
+
+WhenBroadcastReceived(GameOver)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Open Game)
+{
+    Looks.Show();
+    Looks.Hide();
+    BallCount = 0;
+    isOriginalSprite? = "yes";
+    Control.Wait(1);
+    isStationaryClone? = "no";
+    Control.CreateCloneOf(_myself_);
+}
+
+WhenBroadcastReceived(Spawn Extra Ball)
+{
+    If (isOriginalSprite? == "yes")
+    {
+        isStationaryClone? = "no";
+        Control.CreateCloneOf(_myself_);
+    }
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    Looks.Show();
+    BallCount += 1;
+    isOriginalSprite? = "no";
+    If (isStationaryClone? == "no")
+    {
+        Motion.GoTo(Paddle);
+        Motion.ChangeYBy(10);
+        originalSpeed = 7;
+        xVel = originalSpeed;
+        yVel = originalSpeed;
+        Forever
+        {
+            Call Update Movement;
+            Call Check Touching Bottom Of Screen;
+        }
+    }
+    Else
+    {
+        Looks.SetEffectTo(GHOST, 100);
+    }
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define CheckGameOver (warp=false)
+{
+    If (BallCount < 1)
+    {
+        Event.Broadcast("GameOver");
+        Stop(this script);
+    }
+}
+
+Define Check Touching Bottom Of Screen (warp=false)
+{
+    If (Motion.YPosition() < -178)
+    {
+        Event.Broadcast("Delete Stationary Clones");
+        BallCount += -1;
+        Call CheckGameOver;
+        Control.DeleteThisClone();
+    }
+}
+
+Define Create Stationary Clone (warp=false)
+{
+    Event.Broadcast("Delete Stationary Clones");
+    isStationaryClone? = "yes";
+    Control.CreateCloneOf(_myself_);
+    isStationaryClone? = "no";
+    Event.Broadcast("Break Brick");
+}
+
+Define Update Movement (warp=false)
+{
+    Motion.ChangeXBy(xVel);
+    If (Sensing.TouchingObject(Brick) Or Sensing.TouchingObject(Border))
+    {
+        Call Create Stationary Clone;
+        xVel = (xVel * -1);
+        Motion.ChangeXBy(xVel);
+    }
+    Motion.ChangeYBy(yVel);
+    If (Sensing.TouchingObject(Brick) Or Sensing.TouchingObject(Border))
+    {
+        Call Create Stationary Clone;
+        yVel = (yVel * -1);
+        Motion.ChangeYBy(yVel);
+    }
+    If Sensing.TouchingObject(Paddle)
+    {
+        yVel = ((originalSpeed * ((abs(yVel) / yVel) * -1)) * Operator.Random(0.9 , 1.1));
+        Motion.ChangeYBy(yVel);
+        xVel = (((originalSpeed * 2) - yVel) * (abs(xVel) / xVel));
+    }
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Event.Broadcast("Open Game");
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

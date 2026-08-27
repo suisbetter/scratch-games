@@ -1,0 +1,50 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SwitchCostumeTo(costume1);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(entering the funtimes)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    go += 1;
+    Control.Wait(1);
+    Motion.GoToXY(36, 28);
+    Looks.Show();
+    Sound.PlayUntilDone(recording1);
+    Looks.SwitchCostumeTo(costume2);
+    Sound.PlayUntilDone(Saturday, 11h22m AM);
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(costume3);
+    Sound.PlayUntilDone(Saturday, 11h23m AM);
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(costume4);
+    Sound.PlayUntilDone(Saturday, 11h24m AM);
+    Control.Wait(1);
+    Event.Broadcast("entering the funtimes");
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+costume3.svg
+costume4.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+recording1.wav
+Saturday, 11h22m AM.wav
+Saturday, 11h23m AM.wav
+Saturday, 11h24m AM.wav

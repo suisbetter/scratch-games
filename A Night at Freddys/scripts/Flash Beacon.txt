@@ -1,0 +1,55 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.ClearGraphicEffects();
+    Looks.Hide();
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If (aggression factor == 15)
+        {
+            Event.Broadcast("scooping room");
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(space)
+{
+    Wait Until (start sound == 1);
+    Looks.Show();
+    Looks.SetEffectTo(GHOST, 0);
+    Repeat (10)
+    {
+        Control.Wait(0.1);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(scooping room)
+{
+    Sound.StopAllSounds();
+    Control.Wait(1);
+    Sound.PlayUntilDone(Door-Me_58G_HD2-29632);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Door-Me_58G_HD2-29632.mp3
+pop.wav

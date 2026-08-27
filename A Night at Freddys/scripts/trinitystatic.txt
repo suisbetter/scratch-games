@@ -1,0 +1,106 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Sound.SetVolumeTo(100);
+    nights = 0;
+    Looks.Hide();
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If (nights == 1)
+        {
+            Repeat (10)
+            {
+                Control.Wait(0.1);
+                Sound.ChangeVolumeBy(-10);
+            }
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Show();
+    Looks.ClearGraphicEffects();
+    Repeat Until (nights == 1)
+    {
+        Sound.PlayUntilDone(FNaF_ Sister Location Title Screen _ SL Menu Music _ Five Nights at Freddy's);
+    }
+}
+
+WhenBroadcastReceived(jumpscare)
+{
+    aggression factor = 0;
+    timer = 0;
+    Sound.SetVolumeTo(100);
+    Looks.Show();
+    Sound.Play(Sister Location's static screen);
+    Looks.SetEffectTo(GHOST, 0);
+    Control.Wait(0.5);
+    Repeat (10)
+    {
+        Control.Wait(0.1);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+    Control.Wait(2);
+    Event.Broadcast("enter funtime auditorium");
+}
+
+WhenBroadcastReceived(message1)
+{
+    Forever
+    {
+        Looks.NextCostume();
+    }
+}
+
+WhenBroadcastReceived(night 1)
+{
+    nights += 1;
+    Repeat (10)
+    {
+        Control.Wait(0.1);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Show();
+    Looks.SetEffectTo(GHOST, 50);
+    Repeat Until (nights == 1)
+    {
+        Sound.PlayUntilDone(FNaF_ Sister Location Title Screen _ SL Menu Music _ Five Nights at Freddy's);
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+trinitystatic.png
+trinitystatic2.png
+trinitystatic3.png
+trinitystatic4.png
+trinitystatic5.png
+trinitystatic6.png
+trinitystatic7.png
+trinitystatic8.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+FNaF_ Sister Location Title Screen _ SL Menu Music _ Five Nights at Freddy's.mp3
+Sister Location's static screen.mp3

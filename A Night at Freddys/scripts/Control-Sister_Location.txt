@@ -1,0 +1,95 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    funtime auditorium = 0;
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(circus control)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    Repeat (10)
+    {
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+}
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Sound.PlayUntilDone(Door-Me_58G_HD2-29632);
+    Motion.GoToXY(0, 0);
+    Looks.SetSizeTo(150);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    prm += 1;
+    Repeat Until (funtime auditorium == 1)
+    {
+        Repeat (16)
+        {
+            Looks.NextCostume();
+        }
+    }
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Forever
+    {
+        Motion.SetY(((Motion.YPosition() - ((Sensing.MouseY() + Motion.YPosition()) / 40)) / 1.18));
+    }
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 40)) / 1.18));
+    }
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Sound.PlayUntilDone(Dark_amb_v4);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Control-Sister_Location.png
+Control-Sister_Location2.png
+Control-Sister_Location3.png
+Control-Sister_Location4.png
+Control-Sister_Location5.png
+Control-Sister_Location6.png
+Control-Sister_Location7.png
+Control-Sister_Location8.png
+Control-Sister_Location9.png
+Control-Sister_Location10.png
+Control-Sister_Location11.png
+Control-Sister_Location12.png
+Control-Sister_Location13.png
+Control-Sister_Location14.png
+Control-Sister_Location15.png
+Control-Sister_Location16.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Dark_amb_v4.mp3
+Door-Me_58G_HD2-29632.mp3

@@ -1,0 +1,37 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(48, -8);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(circus control)
+{
+    circus control += 1;
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Forever
+    {
+        If (Sensing.MouseDown() And Sensing.TouchingObject(_mouse_))
+        {
+            Event.Broadcast("circus control");
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+tera-a.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

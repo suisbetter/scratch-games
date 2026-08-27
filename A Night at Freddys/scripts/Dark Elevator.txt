@@ -1,0 +1,62 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SetSizeTo(190);
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+}
+
+
+//----- Sprite clicked events -----------------------------------------------------------------------------------------
+
+WhenThisSpriteClicked()
+{
+    Event.Broadcast("door opening");
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(circus control)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(door opening)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    Forever
+    {
+        If (funtime auditorium == 1)
+        {
+            Looks.Hide();
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(go dark)
+{
+    Looks.SetSizeTo(190);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+328.png

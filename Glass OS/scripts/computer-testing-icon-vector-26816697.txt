@@ -1,0 +1,254 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 3)
+        {
+            Event.Broadcast("Delete");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 2)
+        {
+            Event.Broadcast("More Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (microbit_isButtonPressed ?? - probably legacy function from Scratch 2.0 And microbit_isButtonPressed ?? - probably legacy function from Scratch 2.0)
+        {
+            Event.Broadcast("Close Test App");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 2)
+        {
+            Event.Broadcast("More Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 1)
+        {
+            Event.Broadcast("Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 3)
+        {
+            Event.Broadcast("Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Again)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 1)
+        {
+            Event.Broadcast("Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(B Button Pressed)
+{
+    Event.Broadcast("Hide");
+    Event.Broadcast("Ghost Effect 0");
+    HomeScreen = "no";
+    Looks.SwitchBackdropTo(backdrop2);
+    Test += 1;
+    Control.Wait(2);
+    When Pin 1 Pressed = 0;
+}
+
+WhenBroadcastReceived(Close Test App)
+{
+    Looks.Show();
+    Hide = 0;
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-26816697);
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If ((When Pin 0 Pressed == 1) And (When Pin 1 Pressed == 1))
+        {
+            Event.Broadcast("Open Test App");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 2)
+        {
+            Event.Broadcast("More Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 1)
+        {
+            Event.Broadcast("Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 1)
+        {
+            Event.Broadcast("Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 3)
+        {
+            Event.Broadcast("Delete");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (microbit_isButtonPressed ?? - probably legacy function from Scratch 2.0 And microbit_isButtonPressed ?? - probably legacy function from Scratch 2.0)
+        {
+            Event.Broadcast("Close Test App");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 3)
+        {
+            Event.Broadcast("Delete");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 0 Pressed == 2)
+        {
+            Event.Broadcast("More Highlighted");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Delete)
+{
+    When Pin 0 Pressed = 1;
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-26816697);
+    Event.Broadcast("Again");
+}
+
+WhenBroadcastReceived(Go Down)
+{
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-2);
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Highlighted)
+{
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-2);
+}
+
+WhenBroadcastReceived(More Highlighted)
+{
+    Control.Wait(1);
+    Looks.SwitchCostumeTo(computer-testing-icon-vector-26816697);
+}
+
+WhenBroadcastReceived(Open Test App)
+{
+    Event.Broadcast("B Button Pressed");
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+When Pin 0 Pressed = 0;
+Event.Broadcast("Dashboard");
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+computer-testing-icon-vector-2.svg
+computer-testing-icon-vector-26816697.svg

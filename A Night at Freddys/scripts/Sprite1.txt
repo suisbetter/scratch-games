@@ -1,0 +1,69 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+    Looks.SwitchCostumeTo(costume1);
+    Forever
+    {
+        If Sensing.TouchingObject(_mouse_)
+        {
+            Looks.SwitchCostumeTo(costume2);
+        }
+        Else
+        {
+            Looks.SwitchCostumeTo(costume1);
+        }
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If (Sensing.MouseDown() And Sensing.TouchingObject(_mouse_))
+        {
+            Event.Broadcast("night 1");
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(night 1)
+{
+    Repeat (10)
+    {
+        Control.Wait(0.1);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+}
+
+WhenBroadcastReceived(primary control module)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(show)
+{
+    Looks.Show();
+    Looks.SetEffectTo(GHOST, 40);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+costume2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

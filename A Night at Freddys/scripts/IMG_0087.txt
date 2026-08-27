@@ -1,0 +1,64 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    aggression factor = 0;
+    Looks.Hide();
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If ((Not ((aggression factor == 1))) Or (Not ((aggression factor == 6))))
+        {
+            Looks.Hide();
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(space)
+{
+    Wait Until (funtime auditorium == 1);
+    Control.Wait(0.5);
+    Wait Until ((aggression factor == 1) Or (aggression factor == 6));
+    Looks.Show();
+    Repeat (43)
+    {
+        Looks.NextCostume();
+    }
+    Looks.Hide();
+    Stop(this script);
+}
+
+WhenKeyPressed(space)
+{
+    aggression factor += 1;
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(scooping room)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+IMG_0087.png
+IMG_008710.png
+IMG_008711.png
+IMG_00872.png
+IMG_00873.png
+IMG_00874.png
+IMG_00875.png
+IMG_00876.png
+IMG_00877.png
+IMG_00878.png
+IMG_00879.png

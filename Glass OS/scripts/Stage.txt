@@ -1,0 +1,107 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+AM = 0
+AM or PM = AM
+BallCount = 0
+Game = 0
+Hide = 6
+HomeScreen = no
+Open Test App = 2
+originalSpeed = 7
+OS Opening = 0
+Pin 0 = 2
+Pin 1 = 0
+PowerupSpawnX = 176
+PowerupSpawnY = 54
+Test = 2
+Verification = 0
+When Pin 0 Pressed = 2
+When Pin 1 Pressed = 0
+
+
+
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SetEffectTo(GHOST, 0);
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Dashboard)
+{
+    OS Opening = 0;
+    Pin 0 = 0;
+    Pin 1 = 0;
+    Stop(this script);
+}
+
+WhenBroadcastReceived(GameOver)
+{
+    Looks.SwitchBackdropTo(backdrop6);
+    Control.Wait(5);
+    Event.Broadcast("Hide");
+    Control.Wait(1);
+    Event.Broadcast("Restart");
+    Control.Wait(1);
+    Event.Broadcast("Restart");
+}
+
+WhenBroadcastReceived(Ghost Effect 0)
+{
+    Looks.SetEffectTo(GHOST, 0);
+}
+
+WhenBroadcastReceived(Ghost Effect 100)
+{
+    Repeat (5)
+    {
+        Looks.ChangeEffectBy(GHOST, 25);
+    }
+}
+
+WhenBroadcastReceived(Hide BackDrop)
+{
+    Repeat (5)
+    {
+        Looks.ChangeEffectBy(GHOST, 25);
+    }
+}
+
+WhenBroadcastReceived(Open Test App)
+{
+    Open Test App += 1;
+}
+
+WhenBroadcastReceived(OS Opening)
+{
+    OS Opening += 1;
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+microbit_whenPinConnected ?? - probably legacy function from Scratch 2.0
+
+microbit_whenPinConnected ?? - probably legacy function from Scratch 2.0
+
+Verification = 0;
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+backdrop1.svg
+backdrop2.svg
+backdrop3.svg
+backdrop4.svg
+backdrop5.svg
+backdrop6.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav
+recording1.wav
+recording2.wav

@@ -1,0 +1,72 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        If (Sensing.Answer() == "AM")
+        {
+            Event.Broadcast("AM");
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(AM)
+{
+    AM += 1;
+}
+
+WhenBroadcastReceived(AM = 1)
+{
+    Looks.Show();
+    Repeat Until (Hide == 2)
+    {
+        Looks.Say(Operator.Join(Sensing.Current(HOUR), Operator.Join(Operator.Join(":", Sensing.Current(MINUTE)), Operator.Join("  ", AM or PM))));
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Looks.Show();
+    Repeat Until ((Hide == 2) Or (AM == 1))
+    {
+        Looks.Say(Operator.Join((Sensing.Current(HOUR) - 12), Operator.Join(Operator.Join(":", Sensing.Current(MINUTE)), Operator.Join("  ", AM or PM))));
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (AM == 1)
+        {
+            Event.Broadcast("AM = 1");
+        }
+    }
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    AM += 1;
+}
+
+WhenBroadcastReceived(Hide)
+{
+    AM = 0;
+    Hide += 1;
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+apple.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Chomp.wav

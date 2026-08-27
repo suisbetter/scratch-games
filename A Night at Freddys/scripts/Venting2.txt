@@ -1,0 +1,166 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+    circus control = 0;
+    Looks.ClearGraphicEffects();
+    Looks.SetSizeTo(150);
+    Looks.Hide();
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(w)
+{
+    Repeat (15)
+    {
+        Looks.NextCostume();
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (actual funtime auditorium == 0);
+    Wait Until (circus control == 0);
+    Forever
+    {
+        If (Not (Sensing.KeyPressed(w)))
+        {
+            Wait Until (go == 1);
+            Wait Until (circus control == 1);
+            Sound.StopAllSounds();
+        }
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (start sound == 1);
+    Wait Until (circus control == 1);
+    Wait Until (go == 1);
+    Sound.PlayUntilDone(Metal_duct_fast);
+}
+
+WhenKeyPressed(w)
+{
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 40)) / 1.18));
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (start sound == 1);
+    Wait Until (circus control == 1);
+    Wait Until (circus control 2 == 0);
+    Repeat (1)
+    {
+        Control.Wait(18);
+        Event.Broadcast("in circus control");
+        Stop(this script);
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (circus control == 1);
+    Wait Until (circus control 2 == 0);
+    Repeat (1)
+    {
+        Control.Wait(13);
+        Sound.PlayUntilDone(Circus_gallery);
+        Stop(this script);
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Wait Until (circus control 2 == 1);
+    Repeat (1)
+    {
+        Control.Wait(18);
+        Repeat (10)
+        {
+            Control.Wait(0.01);
+            Looks.ChangeEffectBy(GHOST, 10);
+        }
+        Event.Broadcast("primary control module");
+        Stop(this script);
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(circus control)
+{
+    Looks.Show();
+    Looks.SetSizeTo(160);
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, -10);
+    }
+}
+
+WhenBroadcastReceived(circus control)
+{
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+}
+
+WhenBroadcastReceived(circus control)
+{
+    Control.Wait(0.5);
+    Sound.PlayUntilDone(Door-Me_58G_HD2-29632);
+}
+
+WhenBroadcastReceived(go back)
+{
+    circus control += 1;
+    Sound.Play(Circus_gallery);
+    Sound.PlayUntilDone(Door-Me_58G_HD2-29632);
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, -10);
+    }
+}
+
+WhenBroadcastReceived(hide)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Venting.png
+Venting2.png
+Venting3.png
+Venting4.png
+Venting5.png
+Venting6.png
+Venting7.png
+Venting8.png
+Venting9.png
+Venting10.png
+Venting11.png
+Venting12.png
+Venting13.png
+Venting14.png
+Venting15.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Circus_gallery.mp3
+Door-Me_58G_HD2-29632.mp3
+Metal_duct_fast.mp3

@@ -1,0 +1,83 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    scooping room = 0;
+    Looks.Hide();
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(w)
+{
+    Repeat (9)
+    {
+        Looks.NextCostume();
+    }
+}
+
+WhenKeyPressed(w)
+{
+    Control.Wait(0.5);
+    Wait Until (funtime auditorium == 1);
+    Sound.PlayUntilDone(Cement_Barefoot_Walking_01);
+}
+
+WhenKeyPressed(space)
+{
+    Wait Until (start sound == 1);
+    Wait Until (scooping room == 0);
+    Sound.Play(Flashbeacon);
+    Sound.Play(BeaconRecharge);
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    funtime auditorium = 0;
+    funtime auditorium += 1;
+    Control.Wait(1);
+    Looks.Show();
+    Control.Wait(3.5);
+    Event.Broadcast("show broadcast sprite");
+}
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    fntme += 1;
+    Sound.PlayUntilDone(Funtime_auditorium);
+}
+
+WhenBroadcastReceived(jumpscare)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(scooping room)
+{
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Funtime_Auditorium_Travel-ezgif.png
+Funtime_Auditorium_Travel-ezgif2.png
+Funtime_Auditorium_Travel-ezgif3.png
+Funtime_Auditorium_Travel-ezgif4.png
+Funtime_Auditorium_Travel-ezgif5.png
+Funtime_Auditorium_Travel-ezgif6.png
+Funtime_Auditorium_Travel-ezgif7.png
+Funtime_Auditorium_Travel-ezgif8.png
+Funtime_Auditorium_Travel-ezgif9.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+BeaconRecharge.mp3
+Cement_Barefoot_Walking_01.wav
+Flashbeacon.mp3
+Funtime_auditorium.mp3

@@ -1,0 +1,272 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.SwitchCostumeTo(FnafSisterLocationSpringtrapcutscene-ezgif7);
+    Looks.SetSizeTo(210);
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(surprise ending)
+{
+    Looks.Show();
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, -10);
+    }
+    Repeat (212)
+    {
+        Control.Wait(0.2);
+        Looks.NextCostume();
+    }
+}
+
+WhenBroadcastReceived(surprise ending)
+{
+    Control.Wait(41.38);
+    Sound.PlayUntilDone(recording2);
+}
+
+WhenBroadcastReceived(surprise ending)
+{
+    Sound.Play(recording1);
+    Control.Wait(2);
+    Sound.Play(FNaF_ Sister Location - Ending Cutscene Music);
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Event.Broadcast("surprise ending");
+
+Sound.StopAllSounds();
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+FnafSisterLocationSpringtrapcutscene-ezgif7.png
+FnafSisterLocationSpringtrapcutscene-ezgif8.png
+FnafSisterLocationSpringtrapcutscene-ezgif9.png
+FnafSisterLocationSpringtrapcutscene-ezgif10.png
+FnafSisterLocationSpringtrapcutscene-ezgif11.png
+FnafSisterLocationSpringtrapcutscene-ezgif12.png
+FnafSisterLocationSpringtrapcutscene-ezgif13.png
+FnafSisterLocationSpringtrapcutscene-ezgif14.png
+FnafSisterLocationSpringtrapcutscene-ezgif15.png
+FnafSisterLocationSpringtrapcutscene-ezgif16.png
+FnafSisterLocationSpringtrapcutscene-ezgif17.png
+FnafSisterLocationSpringtrapcutscene-ezgif18.png
+FnafSisterLocationSpringtrapcutscene-ezgif19.png
+FnafSisterLocationSpringtrapcutscene-ezgif20.png
+FnafSisterLocationSpringtrapcutscene-ezgif21.png
+FnafSisterLocationSpringtrapcutscene-ezgif22.png
+FnafSisterLocationSpringtrapcutscene-ezgif23.png
+FnafSisterLocationSpringtrapcutscene-ezgif24.png
+FnafSisterLocationSpringtrapcutscene-ezgif25.png
+FnafSisterLocationSpringtrapcutscene-ezgif26.png
+FnafSisterLocationSpringtrapcutscene-ezgif27.png
+FnafSisterLocationSpringtrapcutscene-ezgif28.png
+FnafSisterLocationSpringtrapcutscene-ezgif29.png
+FnafSisterLocationSpringtrapcutscene-ezgif30.png
+FnafSisterLocationSpringtrapcutscene-ezgif31.png
+FnafSisterLocationSpringtrapcutscene-ezgif32.png
+FnafSisterLocationSpringtrapcutscene-ezgif33.png
+FnafSisterLocationSpringtrapcutscene-ezgif34.png
+FnafSisterLocationSpringtrapcutscene-ezgif35.png
+FnafSisterLocationSpringtrapcutscene-ezgif36.png
+FnafSisterLocationSpringtrapcutscene-ezgif37.png
+FnafSisterLocationSpringtrapcutscene-ezgif38.png
+FnafSisterLocationSpringtrapcutscene-ezgif39.png
+FnafSisterLocationSpringtrapcutscene-ezgif40.png
+FnafSisterLocationSpringtrapcutscene-ezgif41.png
+FnafSisterLocationSpringtrapcutscene-ezgif42.png
+FnafSisterLocationSpringtrapcutscene-ezgif43.png
+FnafSisterLocationSpringtrapcutscene-ezgif44.png
+FnafSisterLocationSpringtrapcutscene-ezgif45.png
+FnafSisterLocationSpringtrapcutscene-ezgif46.png
+FnafSisterLocationSpringtrapcutscene-ezgif47.png
+FnafSisterLocationSpringtrapcutscene-ezgif48.png
+FnafSisterLocationSpringtrapcutscene-ezgif49.png
+FnafSisterLocationSpringtrapcutscene-ezgif50.png
+FnafSisterLocationSpringtrapcutscene-ezgif51.png
+FnafSisterLocationSpringtrapcutscene-ezgif52.png
+FnafSisterLocationSpringtrapcutscene-ezgif53.png
+FnafSisterLocationSpringtrapcutscene-ezgif54.png
+FnafSisterLocationSpringtrapcutscene-ezgif55.png
+FnafSisterLocationSpringtrapcutscene-ezgif56.png
+FnafSisterLocationSpringtrapcutscene-ezgif57.png
+FnafSisterLocationSpringtrapcutscene-ezgif58.png
+FnafSisterLocationSpringtrapcutscene-ezgif59.png
+FnafSisterLocationSpringtrapcutscene-ezgif60.png
+FnafSisterLocationSpringtrapcutscene-ezgif61.png
+FnafSisterLocationSpringtrapcutscene-ezgif62.png
+FnafSisterLocationSpringtrapcutscene-ezgif63.png
+FnafSisterLocationSpringtrapcutscene-ezgif64.png
+FnafSisterLocationSpringtrapcutscene-ezgif65.png
+FnafSisterLocationSpringtrapcutscene-ezgif66.png
+FnafSisterLocationSpringtrapcutscene-ezgif67.png
+FnafSisterLocationSpringtrapcutscene-ezgif68.png
+FnafSisterLocationSpringtrapcutscene-ezgif69.png
+FnafSisterLocationSpringtrapcutscene-ezgif70.png
+FnafSisterLocationSpringtrapcutscene-ezgif71.png
+FnafSisterLocationSpringtrapcutscene-ezgif72.png
+FnafSisterLocationSpringtrapcutscene-ezgif73.png
+FnafSisterLocationSpringtrapcutscene-ezgif74.png
+FnafSisterLocationSpringtrapcutscene-ezgif75.png
+FnafSisterLocationSpringtrapcutscene-ezgif76.png
+FnafSisterLocationSpringtrapcutscene-ezgif77.png
+FnafSisterLocationSpringtrapcutscene-ezgif78.png
+FnafSisterLocationSpringtrapcutscene-ezgif79.png
+FnafSisterLocationSpringtrapcutscene-ezgif80.png
+FnafSisterLocationSpringtrapcutscene-ezgif81.png
+FnafSisterLocationSpringtrapcutscene-ezgif82.png
+FnafSisterLocationSpringtrapcutscene-ezgif83.png
+FnafSisterLocationSpringtrapcutscene-ezgif84.png
+FnafSisterLocationSpringtrapcutscene-ezgif85.png
+FnafSisterLocationSpringtrapcutscene-ezgif86.png
+FnafSisterLocationSpringtrapcutscene-ezgif87.png
+FnafSisterLocationSpringtrapcutscene-ezgif88.png
+FnafSisterLocationSpringtrapcutscene-ezgif89.png
+FnafSisterLocationSpringtrapcutscene-ezgif90.png
+FnafSisterLocationSpringtrapcutscene-ezgif91.png
+FnafSisterLocationSpringtrapcutscene-ezgif92.png
+FnafSisterLocationSpringtrapcutscene-ezgif93.png
+FnafSisterLocationSpringtrapcutscene-ezgif94.png
+FnafSisterLocationSpringtrapcutscene-ezgif95.png
+FnafSisterLocationSpringtrapcutscene-ezgif96.png
+FnafSisterLocationSpringtrapcutscene-ezgif97.png
+FnafSisterLocationSpringtrapcutscene-ezgif98.png
+FnafSisterLocationSpringtrapcutscene-ezgif99.png
+FnafSisterLocationSpringtrapcutscene-ezgif100.png
+FnafSisterLocationSpringtrapcutscene-ezgif101.png
+FnafSisterLocationSpringtrapcutscene-ezgif102.png
+FnafSisterLocationSpringtrapcutscene-ezgif103.png
+FnafSisterLocationSpringtrapcutscene-ezgif104.png
+FnafSisterLocationSpringtrapcutscene-ezgif105.png
+FnafSisterLocationSpringtrapcutscene-ezgif106.png
+FnafSisterLocationSpringtrapcutscene-ezgif107.png
+FnafSisterLocationSpringtrapcutscene-ezgif108.png
+FnafSisterLocationSpringtrapcutscene-ezgif109.png
+FnafSisterLocationSpringtrapcutscene-ezgif110.png
+FnafSisterLocationSpringtrapcutscene-ezgif111.png
+FnafSisterLocationSpringtrapcutscene-ezgif112.png
+FnafSisterLocationSpringtrapcutscene-ezgif113.png
+FnafSisterLocationSpringtrapcutscene-ezgif114.png
+FnafSisterLocationSpringtrapcutscene-ezgif115.png
+FnafSisterLocationSpringtrapcutscene-ezgif116.png
+FnafSisterLocationSpringtrapcutscene-ezgif117.png
+FnafSisterLocationSpringtrapcutscene-ezgif118.png
+FnafSisterLocationSpringtrapcutscene-ezgif119.png
+FnafSisterLocationSpringtrapcutscene-ezgif120.png
+FnafSisterLocationSpringtrapcutscene-ezgif121.png
+FnafSisterLocationSpringtrapcutscene-ezgif122.png
+FnafSisterLocationSpringtrapcutscene-ezgif123.png
+FnafSisterLocationSpringtrapcutscene-ezgif124.png
+FnafSisterLocationSpringtrapcutscene-ezgif125.png
+FnafSisterLocationSpringtrapcutscene-ezgif126.png
+FnafSisterLocationSpringtrapcutscene-ezgif127.png
+FnafSisterLocationSpringtrapcutscene-ezgif128.png
+FnafSisterLocationSpringtrapcutscene-ezgif129.png
+FnafSisterLocationSpringtrapcutscene-ezgif130.png
+FnafSisterLocationSpringtrapcutscene-ezgif131.png
+FnafSisterLocationSpringtrapcutscene-ezgif132.png
+FnafSisterLocationSpringtrapcutscene-ezgif133.png
+FnafSisterLocationSpringtrapcutscene-ezgif134.png
+FnafSisterLocationSpringtrapcutscene-ezgif135.png
+FnafSisterLocationSpringtrapcutscene-ezgif136.png
+FnafSisterLocationSpringtrapcutscene-ezgif137.png
+FnafSisterLocationSpringtrapcutscene-ezgif138.png
+FnafSisterLocationSpringtrapcutscene-ezgif139.png
+FnafSisterLocationSpringtrapcutscene-ezgif140.png
+FnafSisterLocationSpringtrapcutscene-ezgif141.png
+FnafSisterLocationSpringtrapcutscene-ezgif142.png
+FnafSisterLocationSpringtrapcutscene-ezgif143.png
+FnafSisterLocationSpringtrapcutscene-ezgif144.png
+FnafSisterLocationSpringtrapcutscene-ezgif145.png
+FnafSisterLocationSpringtrapcutscene-ezgif146.png
+FnafSisterLocationSpringtrapcutscene-ezgif147.png
+FnafSisterLocationSpringtrapcutscene-ezgif148.png
+FnafSisterLocationSpringtrapcutscene-ezgif149.png
+FnafSisterLocationSpringtrapcutscene-ezgif150.png
+FnafSisterLocationSpringtrapcutscene-ezgif151.png
+FnafSisterLocationSpringtrapcutscene-ezgif152.png
+FnafSisterLocationSpringtrapcutscene-ezgif153.png
+FnafSisterLocationSpringtrapcutscene-ezgif154.png
+FnafSisterLocationSpringtrapcutscene-ezgif155.png
+FnafSisterLocationSpringtrapcutscene-ezgif156.png
+FnafSisterLocationSpringtrapcutscene-ezgif157.png
+FnafSisterLocationSpringtrapcutscene-ezgif158.png
+FnafSisterLocationSpringtrapcutscene-ezgif159.png
+FnafSisterLocationSpringtrapcutscene-ezgif160.png
+FnafSisterLocationSpringtrapcutscene-ezgif161.png
+FnafSisterLocationSpringtrapcutscene-ezgif162.png
+FnafSisterLocationSpringtrapcutscene-ezgif163.png
+FnafSisterLocationSpringtrapcutscene-ezgif164.png
+FnafSisterLocationSpringtrapcutscene-ezgif165.png
+FnafSisterLocationSpringtrapcutscene-ezgif166.png
+FnafSisterLocationSpringtrapcutscene-ezgif167.png
+FnafSisterLocationSpringtrapcutscene-ezgif168.png
+FnafSisterLocationSpringtrapcutscene-ezgif169.png
+FnafSisterLocationSpringtrapcutscene-ezgif170.png
+FnafSisterLocationSpringtrapcutscene-ezgif171.png
+FnafSisterLocationSpringtrapcutscene-ezgif172.png
+FnafSisterLocationSpringtrapcutscene-ezgif173.png
+FnafSisterLocationSpringtrapcutscene-ezgif174.png
+FnafSisterLocationSpringtrapcutscene-ezgif175.png
+FnafSisterLocationSpringtrapcutscene-ezgif176.png
+FnafSisterLocationSpringtrapcutscene-ezgif177.png
+FnafSisterLocationSpringtrapcutscene-ezgif178.png
+FnafSisterLocationSpringtrapcutscene-ezgif179.png
+FnafSisterLocationSpringtrapcutscene-ezgif180.png
+FnafSisterLocationSpringtrapcutscene-ezgif181.png
+FnafSisterLocationSpringtrapcutscene-ezgif182.png
+FnafSisterLocationSpringtrapcutscene-ezgif183.png
+FnafSisterLocationSpringtrapcutscene-ezgif184.png
+FnafSisterLocationSpringtrapcutscene-ezgif185.png
+FnafSisterLocationSpringtrapcutscene-ezgif186.png
+FnafSisterLocationSpringtrapcutscene-ezgif187.png
+FnafSisterLocationSpringtrapcutscene-ezgif188.png
+FnafSisterLocationSpringtrapcutscene-ezgif189.png
+FnafSisterLocationSpringtrapcutscene-ezgif190.png
+FnafSisterLocationSpringtrapcutscene-ezgif191.png
+FnafSisterLocationSpringtrapcutscene-ezgif192.png
+FnafSisterLocationSpringtrapcutscene-ezgif193.png
+FnafSisterLocationSpringtrapcutscene-ezgif194.png
+FnafSisterLocationSpringtrapcutscene-ezgif195.png
+FnafSisterLocationSpringtrapcutscene-ezgif196.png
+FnafSisterLocationSpringtrapcutscene-ezgif197.png
+FnafSisterLocationSpringtrapcutscene-ezgif198.png
+FnafSisterLocationSpringtrapcutscene-ezgif199.png
+FnafSisterLocationSpringtrapcutscene-ezgif200.png
+FnafSisterLocationSpringtrapcutscene-ezgif201.png
+FnafSisterLocationSpringtrapcutscene-ezgif202.png
+FnafSisterLocationSpringtrapcutscene-ezgif203.png
+FnafSisterLocationSpringtrapcutscene-ezgif204.png
+FnafSisterLocationSpringtrapcutscene-ezgif205.png
+FnafSisterLocationSpringtrapcutscene-ezgif206.png
+FnafSisterLocationSpringtrapcutscene-ezgif207.png
+FnafSisterLocationSpringtrapcutscene-ezgif208.png
+FnafSisterLocationSpringtrapcutscene-ezgif209.png
+FnafSisterLocationSpringtrapcutscene-ezgif210.png
+FnafSisterLocationSpringtrapcutscene-ezgif211.png
+FnafSisterLocationSpringtrapcutscene-ezgif212.png
+FnafSisterLocationSpringtrapcutscene-ezgif213.png
+FnafSisterLocationSpringtrapcutscene-ezgif214.png
+FnafSisterLocationSpringtrapcutscene-ezgif215.png
+FnafSisterLocationSpringtrapcutscene-ezgif216.png
+FnafSisterLocationSpringtrapcutscene-ezgif217.png
+FnafSisterLocationSpringtrapcutscene-ezgif218.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+FNaF_ Sister Location - Ending Cutscene Music.mp3
+pop.wav
+recording1.wav
+recording2.wav

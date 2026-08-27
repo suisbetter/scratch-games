@@ -1,0 +1,55 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Close Test App)
+{
+    Looks.Show();
+    Test = 0;
+    HomeScreen = "yes";
+    Event.Broadcast("Dashboard");
+    Control.Wait(3);
+    Event.Broadcast("Dashboard");
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Looks.Show();
+    Looks.SetEffectTo(GHOST, 0);
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Load1Done)
+{
+    Looks.Hide();
+    Costume.GoToFrontBack(back);
+    Control.Wait(4);
+    Looks.SetEffectTo(GHOST, 70);
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+When Pin 0 Pressed = 0;
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Food.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+recording1.wav

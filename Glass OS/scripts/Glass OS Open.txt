@@ -1,0 +1,70 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SwitchCostumeTo(Glass OS (1));
+    Motion.GoToXY(0, 40);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Dashboard)
+{
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide 2 Sprites)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Load1Done)
+{
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, 15);
+    }
+}
+
+WhenBroadcastReceived(OS Opening)
+{
+    Control.Wait(1);
+    Looks.SetEffectTo(GHOST, 0);
+    Looks.Show();
+    Repeat (15)
+    {
+        Looks.NextCostume();
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Glass OS (1).png
+Glass OS (1)2.png
+Glass OS (1)3.png
+Glass OS (1)4.png
+Glass OS (1)5.png
+Glass OS (1)6.png
+Glass OS (1)7.png
+Glass OS (1)8.png
+Glass OS (1)9.png
+Glass OS (1)10.png
+Glass OS (1)11.png
+Glass OS (1)12.png
+Glass OS (1)13.png
+Glass OS (1)14.png
+Glass OS (1)15.png
+Glass OS (1)16.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+recording1.wav

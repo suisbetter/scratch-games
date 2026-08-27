@@ -1,0 +1,69 @@
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Break Brick)
+{
+    If Sensing.TouchingObject(Ball)
+    {
+        If (Operator.Random(1 , 4) == 4)
+        {
+            PowerupSpawnX = Motion.XPosition();
+            PowerupSpawnY = Motion.YPosition();
+            Control.CreateCloneOf(Powerup);
+        }
+        Control.DeleteThisClone();
+    }
+}
+
+WhenBroadcastReceived(GameOver)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Open Game)
+{
+    Looks.Show();
+    Looks.Hide();
+    Looks.SetSizeTo(200);
+    Motion.GoToXY(-224, 166);
+    Call Spawn Bricks;
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    Looks.Show();
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define Spawn Bricks (warp=true)
+{
+    Repeat (8)
+    {
+        Repeat (29)
+        {
+            Control.CreateCloneOf(_myself_);
+            Motion.ChangeXBy(16);
+        }
+        Motion.SetX(-224);
+        Motion.ChangeYBy(-16);
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

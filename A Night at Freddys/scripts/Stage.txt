@@ -1,0 +1,49 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+actual funtime auditorium = 0
+aggression factor = 0
+circus control = 0
+circus control 2 = 0
+entered = 0
+fntme = 8
+funtime auditorium = 0
+go = 0
+go inside = 0
+nights = 0
+prm = 18
+scooping room = 0
+start sound = 0
+timer = 0
+
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(w)
+{
+    Forever
+    {
+        Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / 40)) / 1.18));
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(night 1)
+{
+    Control.Wait(0.2);
+    Looks.SwitchBackdropTo(backdrop3);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+backdrop1.svg
+backdrop3.svg
+download (1).svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

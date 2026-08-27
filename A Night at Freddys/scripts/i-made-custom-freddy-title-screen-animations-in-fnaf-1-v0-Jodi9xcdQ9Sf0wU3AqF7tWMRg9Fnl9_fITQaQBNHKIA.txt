@@ -1,0 +1,42 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    start sound = 0;
+    Looks.SwitchBackdropTo(backdrop3);
+    Looks.Show();
+    Event.Broadcast("message1");
+    Looks.SetEffectTo(GHOST, 0);
+    Motion.GoToXY(-15, -18);
+    Looks.SetSizeTo(150);
+    Control.Wait(2);
+    Repeat (10)
+    {
+        Control.Wait(0.01);
+        Looks.ChangeEffectBy(GHOST, 10);
+    }
+    Control.Wait(0.5);
+    Looks.Hide();
+    Looks.SwitchBackdropTo(download (1));
+    Looks.SetEffectTo(GHOST, 0);
+    Event.Broadcast("show");
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(night 1)
+{
+    Control.Wait(2);
+    Sound.PlayUntilDone(DaughterLine_6);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+i-made-custom-freddy-title-screen-animations-in-fnaf-1-v0-Jodi9xcdQ9Sf0wU3AqF7tWMRg9Fnl9_fITQaQBNHKIA.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+DaughterLine_6.mp3

@@ -1,0 +1,100 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(0, 0);
+    Looks.SetSizeTo(140);
+    Looks.Hide();
+}
+
+WhenGreenFlagClicked()
+{
+    timer = 0;
+}
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+    Looks.SwitchCostumeTo(Funtime_Foxy_Jumpscare);
+}
+
+
+//----- Key pressed events --------------------------------------------------------------------------------------------
+
+WhenKeyPressed(space)
+{
+}
+
+WhenKeyPressed(space)
+{
+    timer = 0;
+    Repeat (8)
+    {
+        Control.Wait(1);
+        timer += 1;
+    }
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(enter funtime auditorium)
+{
+    Wait Until (funtime auditorium == 1);
+    Repeat (100000000000000000000000000000000)
+    {
+        Repeat (1000000000000000000000000000000)
+        {
+            If ((timer == 8) And (((aggression factor == 4) Or (aggression factor == 5)) Or (aggression factor == 7)))
+            {
+                Looks.Show();
+                Sound.Play(Scream_op5-2);
+                Repeat (21)
+                {
+                    Looks.NextCostume();
+                }
+                Event.Broadcast("jumpscare");
+                Sound.StopAllSounds();
+                Looks.Hide();
+                Stop(this script);
+            }
+        }
+    }
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Event.Broadcast("enter funtime auditorium");
+aggression factor = 0;
+timer = 0;
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Funtime_Foxy_Jumpscare.png
+Funtime_Foxy_Jumpscare2.png
+Funtime_Foxy_Jumpscare3.png
+Funtime_Foxy_Jumpscare4.png
+Funtime_Foxy_Jumpscare5.png
+Funtime_Foxy_Jumpscare6.png
+Funtime_Foxy_Jumpscare7.png
+Funtime_Foxy_Jumpscare8.png
+Funtime_Foxy_Jumpscare9.png
+Funtime_Foxy_Jumpscare10.png
+Funtime_Foxy_Jumpscare11.png
+Funtime_Foxy_Jumpscare12.png
+Funtime_Foxy_Jumpscare13.png
+Funtime_Foxy_Jumpscare14.png
+Funtime_Foxy_Jumpscare15.png
+Funtime_Foxy_Jumpscare16.png
+Funtime_Foxy_Jumpscare17.png
+Funtime_Foxy_Jumpscare18.png
+Funtime_Foxy_Jumpscare19.png
+Funtime_Foxy_Jumpscare20.png
+Funtime_Foxy_Jumpscare21.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Scream_op5-2.wav

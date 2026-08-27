@@ -1,0 +1,32 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Motion.GoToXY(269, -165);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(entering the funtimes)
+{
+    Forever
+    {
+        If (Sensing.MouseDown() And Sensing.TouchingObject(_mouse_))
+        {
+            Event.Broadcast("enter funtime auditorium");
+            Stop(this script);
+        }
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+elephant-a.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

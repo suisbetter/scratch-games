@@ -1,0 +1,122 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Verification = 0;
+    Test = 0;
+    Game = 0;
+    When Pin 0 Pressed = 0;
+    When Pin 1 Pressed = 0;
+    Open Test App = 0;
+    OS Opening = 0;
+    AM = 0;
+    AM or PM = 0;
+    Hide = 0;
+    Event.Broadcast("Hide");
+    Looks.SwitchBackdropTo(backdrop1);
+    Sensing.Ask("AM or PM?");
+    Looks.SetEffectTo(COLOR, 0);
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+    Control.Wait(1);
+    Looks.Show();
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(COLOR, -3);
+    }
+    Looks.Hide();
+    Event.Broadcast("OS Opening");
+}
+
+WhenGreenFlagClicked()
+{
+    Forever
+    {
+        AM or PM = Sensing.Answer();
+    }
+}
+
+WhenGreenFlagClicked()
+{
+    Control.Wait(1);
+    Hide = 0;
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Dashboard)
+{
+    When Pin 1 Pressed = 0;
+    When Pin 0 Pressed = 0;
+}
+
+WhenBroadcastReceived(Dashboard)
+{
+    Forever
+    {
+        If (When Pin 1 Pressed == 1)
+        {
+            Event.Broadcast("Open Test App");
+            Stop(this script);
+        }
+    }
+}
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Restart)
+{
+    Forever
+    {
+        AM or PM = Sensing.Answer();
+    }
+}
+
+WhenBroadcastReceived(Restart)
+{
+    Verification = 0;
+    Test = 0;
+    Game = 0;
+    When Pin 0 Pressed = 0;
+    When Pin 1 Pressed = 0;
+    Open Test App = 0;
+    OS Opening = 0;
+    AM = 0;
+    AM or PM = 0;
+    Hide = 0;
+    Event.Broadcast("Hide");
+    Looks.SwitchBackdropTo(backdrop1);
+    Sensing.Ask("AM or PM?");
+    Looks.SetEffectTo(COLOR, 0);
+    Motion.GoToXY(0, 0);
+    Looks.Hide();
+    Control.Wait(1);
+    Looks.Show();
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(COLOR, -3);
+    }
+    Looks.Hide();
+    Event.Broadcast("OS Opening");
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+microbit_whenPinConnected ?? - probably legacy function from Scratch 2.0
+
+microbit_whenPinConnected ?? - probably legacy function from Scratch 2.0
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+costume1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

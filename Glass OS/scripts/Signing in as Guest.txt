@@ -1,0 +1,93 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SetSizeTo(160);
+    Motion.GoToXY(0, 0);
+    Looks.SetEffectTo(GHOST, 100);
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Hide)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(LGM Complete)
+{
+    microbit_displayText ?? - probably legacy function from Scratch 2.0;
+    Control.Wait(2);
+    microbit_displayText ?? - probably legacy function from Scratch 2.0;
+}
+
+WhenBroadcastReceived(LGM Complete)
+{
+    Event.Broadcast("Hide BackDrop");
+    Costume.GoToFrontBack(front);
+    Looks.Show();
+    Looks.SwitchCostumeTo(Signing in as Guest);
+    Repeat (100)
+    {
+        Looks.ChangeEffectBy(GHOST, -20);
+    }
+    Repeat (20)
+    {
+        Looks.NextCostume();
+    }
+    Control.Wait(7);
+    Sound.PlayUntilDone(Mac);
+    Repeat (20)
+    {
+        Looks.SwitchCostumeTo((Costume.GetNumberName(number) - 1));
+    }
+    Event.Broadcast("Ghost Effect 100");
+    Event.Broadcast("Hide");
+    Control.Wait(1);
+    Event.Broadcast("Dashboard");
+    Control.Wait(1);
+    Event.Broadcast("Dashboard");
+}
+
+
+//----- Orphaned blocks -----------------------------------------------------------------------------------------------
+
+Repeat (100)
+{
+    Looks.ChangeEffectBy(GHOST, 20);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+Signing in as Guest.png
+Signing in as Guest2.png
+Signing in as Guest3.png
+Signing in as Guest4.png
+Signing in as Guest5.png
+Signing in as Guest6.png
+Signing in as Guest7.png
+Signing in as Guest8.png
+Signing in as Guest9.png
+Signing in as Guest10.png
+Signing in as Guest11.png
+Signing in as Guest12.png
+Signing in as Guest13.png
+Signing in as Guest14.png
+Signing in as Guest15.png
+Signing in as Guest16.png
+Signing in as Guest17.png
+Signing in as Guest18.png
+Signing in as Guest19.png
+Signing in as Guest20.png
+Signing in as Guest21.png
+Signing in as Guest22.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Mac.wav
+recording1.wav
+recording2.wav
