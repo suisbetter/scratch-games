@@ -72,19 +72,19 @@ WhenBroadcastReceived(right door)
     Else
     {
       Looks.SwitchCostumeTo(costume6);
-      Control.Wait('0.01');
+      Control.Wait('0.05');
       Looks.SwitchCostumeTo(costume7);
       counter = '1';
       If ((((Costume.GetNumberName(number) == '7') And (counter == '1')) And (leftdoorstate == 'closed')))
       {
         Looks.SwitchCostumeTo(costume12);
-        Control.Wait('0.01');
+        Control.Wait('0.05');
         Looks.SwitchCostumeTo(costume13);
       }
       Else
       {
         Looks.SwitchCostumeTo(costume12);
-        Control.Wait('0.01');
+        Control.Wait('0.05');
         Looks.SwitchCostumeTo(costume7);
       }
     }
@@ -92,11 +92,11 @@ WhenBroadcastReceived(right door)
   Else
   {
     Looks.SwitchCostumeTo(costume6);
-    Control.Wait('0.01');
+    Control.Wait('0.05');
     If ((leftdoorstate == 'closed'))
     {
       Looks.SwitchCostumeTo(costume12);
-      Control.Wait('0.01');
+      Control.Wait('0.05');
       Looks.SwitchCostumeTo(costume5);
     }
     Else
@@ -112,29 +112,29 @@ WhenBroadcastReceived(left door)
   If ((leftdoorstate == 'closed'))
   {
     Looks.SwitchCostumeTo(costume4);
-    Control.Wait('0.01');
+    Control.Wait('0.05');
     Looks.SwitchCostumeTo(costume5);
     If ((rightdoorstate == 'closed'))
     {
       Looks.SwitchCostumeTo(costume12);
-      Control.Wait('0.01');
+      Control.Wait('0.05');
       Looks.SwitchCostumeTo(costume13);
     }
     Else
     {
       Looks.SwitchCostumeTo(costume12);
-      Control.Wait('0.01');
+      Control.Wait('0.05');
       Looks.SwitchCostumeTo(costume5);
     }
   }
   Else
   {
     Looks.SwitchCostumeTo(costume4);
-    Control.Wait('0.01');
+    Control.Wait('0.05');
     If ((rightdoorstate == 'closed'))
     {
       Looks.SwitchCostumeTo(costume12);
-      Control.Wait('0.01');
+      Control.Wait('0.05');
       Looks.SwitchCostumeTo(costume7);
     }
     Else
@@ -187,7 +187,14 @@ WhenGreenFlagClicked()
       }
       Else
       {
-        power = Join((Join(Letter('1', power), Letter('2', power)) - '1'), '%');
+        If ((Length(power) == '3'))
+        {
+          power = Join((Join(Letter('1', power), Letter('2', power)) - '1'), '%');
+        }
+        Else
+        {
+          power = Join((Join(Join(Letter('1', power), Letter('2', power)), Letter('3', power)) - '1'), '%');
+        }
       }
       If (Not((power == '0%')))
       {
@@ -198,7 +205,14 @@ WhenGreenFlagClicked()
         }
         Else
         {
-          power = Join((Join(Letter('1', power), Letter('2', power)) - '1'), '%');
+          If ((Length(power) == '3'))
+          {
+            power = Join((Join(Letter('1', power), Letter('2', power)) - '1'), '%');
+          }
+          Else
+          {
+            power = Join((Join(Join(Letter('1', power), Letter('2', power)), Letter('3', power)) - '1'), '%');
+          }
         }
       }
     }
@@ -210,7 +224,14 @@ WhenGreenFlagClicked()
       }
       Else
       {
-        power = Join((Join(Letter('1', power), Letter('2', power)) - '1'), '%');
+        If ((Length(power) == '3'))
+        {
+          power = Join((Join(Letter('1', power), Letter('2', power)) - '1'), '%');
+        }
+        Else
+        {
+          power = Join((Join(Join(Letter('1', power), Letter('2', power)), Letter('3', power)) - '1'), '%');
+        }
       }
     }
   }

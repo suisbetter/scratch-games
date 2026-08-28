@@ -45,6 +45,8 @@ def desc_block(bid, blocks, show_ids, depth=0):
         return f"{t}({desc_input(ins.get('NUM1'), blocks, show_ids)} - {desc_input(ins.get('NUM2'), blocks, show_ids)})"
     if op == "operator_add":
         return f"{t}({desc_input(ins.get('NUM1'), blocks, show_ids)} + {desc_input(ins.get('NUM2'), blocks, show_ids)})"
+    if op == "operator_mod":
+        return f"{t}({desc_input(ins.get('NUM1'), blocks, show_ids)} mod {desc_input(ins.get('NUM2'), blocks, show_ids)})"
     if op == "operator_equals":
         return f"{t}({desc_input(ins.get('OPERAND1'), blocks, show_ids)} == {desc_input(ins.get('OPERAND2'), blocks, show_ids)})"
     if op == "operator_gt":

@@ -2,9 +2,9 @@
 
 WhenGreenFlagClicked()
 {
+  is clone = '0';
   Looks.Show();
   Looks.SwitchCostumeTo(costume2);
-  index = '0';
   rightdoorstate = 'open';
   leftdoorstate = 'open';
   Control.CreateCloneOf(_myself_);
@@ -21,6 +21,7 @@ Forever
 }
 
 Control.WhenIStartAsClone()
+is clone = '1';
 Looks.SwitchCostumeTo(costume2);
 Forever
 {
@@ -42,6 +43,10 @@ Forever
 
 WhenThisSpriteClicked()
 {
+  If ((is clone == '1'))
+  {
+    Stop(this script);
+  }
   If ((leftdoorstate == 'closed'))
   {
     Looks.SwitchCostumeTo(costume2);
@@ -63,8 +68,6 @@ WhenBroadcastReceived(show)
 {
   Looks.Show();
 }
-
-index += '1';
 
 
 //----- Costumes ------------------------------------------------------------------------------------------------------

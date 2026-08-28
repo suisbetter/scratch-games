@@ -1,14 +1,14 @@
 //----- Variables -----------------------------------------------------------------------------------------------------
 
-camera = 
+ai enabled = 1
+camera =
 counter = 0
-currentman = 
-currentwomen = 
-currentwomen2 = 
+currentman =
+currentwomen =
+currentwomen2 =
 goto man = CAM0
 goto women = CAM1
 goto women2 = CAM-2
-index = 0
 leftdoorstate = open
 leftlightstate = off
 listindex = 9
@@ -17,9 +17,9 @@ mousex = -29
 mousey = 180
 office = yes
 power = 95%
-previous cam man = 
-previous cam woman = 
-previous cam woman2 = 
+previous cam man =
+previous cam woman =
+previous cam woman2 =
 reset = 1
 rightdoorstate = open
 rightlightstate = off
@@ -30,7 +30,7 @@ wait = 0
 
 //----- Lists ---------------------------------------------------------------------------------------------------------
 
-camlist = { 
+camlist = {
     CAM1
     CAM2
     CAM3
@@ -42,7 +42,7 @@ camlist = {
 }
 manlist = { }
 woman2list = { }
-womanlist = { 
+womanlist = {
     CAM1
     CAM0
 }

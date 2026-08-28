@@ -10,25 +10,22 @@ import json
 
 
 def to_number(v):
-    """Scratch's Cast.toNumber: leading numeric parse, non-numeric -> 0."""
+    """Scratch's Cast.toNumber, which scratch-vm implements as JavaScript's
+    Number(value) with NaN -> 0. Critically, Number() requires the *entire*
+    trimmed string to be numeric -- "50%" is NaN (not 50), "12 AM" is NaN
+    (not 12). There is no "parse a leading numeric run" fallback in real
+    Scratch; a previous version of this function had one, which let a real
+    bug (arithmetic done directly on a "N%"/"N AM"-style string instead of
+    first stripping the suffix via Letter/Join) pass here while still
+    breaking in the actual engine. Don't reintroduce that fallback."""
     if isinstance(v, (int, float)):
         return v
     s = str(v).strip()
-    if s == "":
+    if s == "" or "_" in s:  # Python's int()/float() accept "1_000"; JS Number() does not
         return 0
     try:
         return float(s) if ("." in s or "e" in s.lower()) else int(s)
     except ValueError:
-        # Scratch actually does a full Number() coercion (fails -> NaN -> often 0
-        # in arithmetic contexts via toNumber). Emulate: try to parse a leading
-        # numeric run, else 0.
-        import re
-        m = re.match(r"^-?\d+(\.\d+)?", s)
-        if m:
-            try:
-                return float(m.group(0)) if "." in m.group(0) else int(m.group(0))
-            except ValueError:
-                return 0
         return 0
 
 

@@ -208,13 +208,16 @@ WhenKeyPressed(s)
 Define rng man %s
 {
   Looks.SwitchCostumeTo(man);
+  If (Contains(camlist[Letter('4', previous cam man)], 'man'))
+  {
+    List.ReplaceItem(camlist, Letter('4', previous cam man), goto);
+  }
   goto man = goto;
-  previous cam man = goto man;
-  List.Add(manlist, Join('CAM', (Letter('4', goto man) + '-1')));
-  List.Add(manlist, Join('CAM', (Letter('4', goto man) + '-2')));
+  List.Add(manlist, Join('CAM', ((((Letter('4', goto man) + '-1') - '1') mod '8') + '1')));
+  List.Add(manlist, Join('CAM', ((((Letter('4', goto man) + '-2') - '1') mod '8') + '1')));
   goto man = manlist[Random(List.IndexOf(manlist, manlist['2']), List.IndexOf(manlist, manlist['1']))];
   List.ReplaceItem(camlist, Letter('4', goto man), Join(Costume.GetNumberName(name), Join('(', Join(goto man, ')'))));
-  List.ReplaceItem(camlist, Letter('4', previous cam man), goto);
+  previous cam man = goto man;
   wait = '0';
   Control.Wait('1');
   List.DeleteAll(manlist);
@@ -224,13 +227,17 @@ Define rng man %s
 Define rng women %s
 {
   Looks.SwitchCostumeTo(women1);
+  If (Contains(camlist[Letter('4', previous cam woman)], 'women1'))
+  {
+    List.ReplaceItem(camlist, Letter('4', previous cam woman), goto);
+  }
   goto women = goto;
-  previous cam woman = goto women;
-  List.Add(womanlist, Join('CAM', (Letter('4', goto women) + '-1')));
-  List.Add(womanlist, Join('CAM', (Letter('4', goto women) + '-2')));
+  List.Add(womanlist, Join('CAM', ((((Letter('4', goto women) + '-1') - '1') mod '8') + '1')));
+  List.Add(womanlist, Join('CAM', ((((Letter('4', goto women) + '-2') - '1') mod '8') + '1')));
   goto women = womanlist[Random(List.IndexOf(womanlist, womanlist['2']), List.IndexOf(womanlist, womanlist['1']))];
   currentwomen = goto women;
   List.ReplaceItem(camlist, Letter('4', goto women), Join(Costume.GetNumberName(name), Join('(', Join(goto women, ')'))));
+  previous cam woman = goto women;
   wait = '0';
   Control.Wait('1');
   List.DeleteAll(womanlist);
@@ -240,13 +247,16 @@ Define rng women %s
 Define rngwomen2 %s
 {
   Looks.SwitchCostumeTo(women2);
+  If (Contains(camlist[Letter('4', previous cam woman2)], 'women2'))
+  {
+    List.ReplaceItem(camlist, Letter('4', previous cam woman2), goto);
+  }
   goto women2 = goto;
-  previous cam woman2 = goto women2;
-  List.Add(woman2list, Join('CAM', (Letter('4', goto women2) + '-1')));
-  List.Add(woman2list, Join('CAM', (Letter('4', goto women2) + '-2')));
+  List.Add(woman2list, Join('CAM', ((((Letter('4', goto women2) + '-1') - '1') mod '8') + '1')));
+  List.Add(woman2list, Join('CAM', ((((Letter('4', goto women2) + '-2') - '1') mod '8') + '1')));
   goto women2 = woman2list[Random(List.IndexOf(woman2list, woman2list['2']), List.IndexOf(woman2list, woman2list['1']))];
   List.ReplaceItem(camlist, Letter('4', goto women2), Join(Costume.GetNumberName(name), Join('(', Join(goto women2, ')'))));
-  List.ReplaceItem(camlist, Letter('4', previous cam woman2), goto);
+  previous cam woman2 = goto women2;
   wait = '0';
   Control.Wait('1');
   List.DeleteAll(woman2list);
@@ -275,27 +285,43 @@ WhenGreenFlagClicked()
   }
 }
 
-WhenBroadcastReceived(reset pos)
-{
-}
-
 WhenGreenFlagClicked()
 {
-  Call rng man('CAM4');
-  Call rng women('CAM3');
-  Call rngwomen2('CAM5');
+  Call rng man(Join('CAM', Random('1', '8')));
+  Call rng women(Join('CAM', Random('1', '8')));
+  Call rngwomen2(Join('CAM', Random('1', '8')));
   Repeat Until ((power == '0%'))
   {
     Control.Wait('4');
-    Call rng man(Join('CAM', (Letter('4', previous cam man) + Random('-2', '2'))));
-    Call rng women(Join('CAM', (Letter('4', previous cam woman) + Random('-2', '2'))));
-    Call rngwomen2(Join('CAM', (Letter('4', previous cam woman2) + Random('-2', '2'))));
+    If ((ai enabled == '1'))
+    {
+      Call rng man(Join('CAM', ((((Letter('4', previous cam man) + Random('-3', '3')) - '1') mod '8') + '1')));
+      Call rng women(Join('CAM', ((((Letter('4', previous cam woman) + Random('-1', '1')) - '1') mod '8') + '1')));
+      Call rngwomen2(Join('CAM', ((((Letter('4', previous cam woman2) + '1') - '1') mod '8') + '1')));
+    }
   }
-  Call rng man(Join('CAM', (Letter('4', previous cam man) + Random('-1', '2'))));
-  Call rng women(Join('CAM', (Letter('4', previous cam woman) + Random('-1', '2'))));
-  Call rngwomen2(Join('CAM', (Letter('4', previous cam woman2) + Random('-1', '2'))));
+  Call rng man(Join('CAM', ((((Letter('4', previous cam man) + Random('-2', '3')) - '1') mod '8') + '1')));
+  Call rng women(Join('CAM', ((((Letter('4', previous cam woman) + Random('0', '1')) - '1') mod '8') + '1')));
+  Call rngwomen2(Join('CAM', ((((Letter('4', previous cam woman2) + '1') - '1') mod '8') + '1')));
   Control.Wait('1');
   reset = '0';
+}
+
+Define Toggle AI Mode
+{
+  If ((ai enabled == '1'))
+  {
+    ai enabled = '0';
+  }
+  Else
+  {
+    ai enabled = '1';
+  }
+}
+
+WhenKeyPressed(t)
+{
+  Call Toggle AI Mode();
 }
 
 
