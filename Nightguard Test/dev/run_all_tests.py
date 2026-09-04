@@ -1,37 +1,41 @@
 import json
+import os
 import sys
+import zipfile
 sys.path.insert(0, ".")
 from interpreter import Interpreter
+from find_block_ids import find_ids
 
 PROJECT_PATH = "nightguard_extract/project.json"
+if not os.path.exists(PROJECT_PATH):
+    sb3_path = "../sb3/1287939979.sb3"
+    if os.path.exists(sb3_path):
+        os.makedirs("nightguard_extract", exist_ok=True)
+        zipfile.ZipFile(sb3_path).extract("project.json", "nightguard_extract")
+
 data = json.load(open(PROJECT_PATH, encoding="utf-8"))
 
-# Block ids below are re-derived by structural signature (opcode + which
-# variable/list/broadcast they reference), not hardcoded from memory --
-# TurboWarp regenerates every block id (but not variable/list ids) whenever
-# it re-saves the project, which has happened more than once during this
-# project's development. See dev/find_block_ids.py to regenerate this block
-# if the ids drift again after another external re-save.
-LEFT_CLICK_HAT = "il"
-RIGHT_IFELSE = "c"
-OFFICE_RIGHT_DOOR_HAT = "gZ"
-OFFICE_LEFT_DOOR_HAT = "g*"
-POWER_HAT = "g["
-TIME_HAT = "g@"
-JUMPSCARE_GATE_HAT = "mh"
-ANIM_CHAIN_A_HEAD = "cr"
-ANIM_LOOP_BLOCK = "("
-IS_CLONE_VAR = "zNGisCloneVar0001"
-CAMMENU_CLICK_HAT = "iP"
-CAMMENU_KEY_HAT = "iR"
-AI_ENABLED_VAR = "zNGaiEnabledVar01"
-CAMLIST_ID = "aH(4E3xESYnTf3`u|U$Q"
-LOOP_CALL_MAN = "cv"
-LOOP_CALL_WOMAN = "cx"
-LOOP_CALL_WOMAN2 = "f^"
-TAIL_CALL_MAN = "cu"
-TAIL_CALL_WOMAN = "cB"
-TAIL_CALL_WOMAN2 = "cD"
+ids = find_ids(data)
+LEFT_CLICK_HAT = ids["LEFT_CLICK_HAT"]
+RIGHT_IFELSE = ids["RIGHT_IFELSE"]
+OFFICE_RIGHT_DOOR_HAT = ids["OFFICE_RIGHT_DOOR_HAT"]
+OFFICE_LEFT_DOOR_HAT = ids["OFFICE_LEFT_DOOR_HAT"]
+POWER_HAT = ids["POWER_HAT"]
+TIME_HAT = ids["TIME_HAT"]
+JUMPSCARE_GATE_HAT = ids["JUMPSCARE_GATE_HAT"]
+ANIM_CHAIN_A_HEAD = ids["ANIM_CHAIN_A_HEAD"]
+ANIM_LOOP_BLOCK = ids["ANIM_LOOP_BLOCK"]
+LOOP_CALL_MAN = ids["LOOP_CALL_MAN"]
+LOOP_CALL_WOMAN = ids["LOOP_CALL_WOMAN"]
+LOOP_CALL_WOMAN2 = ids["LOOP_CALL_WOMAN2"]
+TAIL_CALL_MAN = ids["TAIL_CALL_MAN"]
+TAIL_CALL_WOMAN = ids["TAIL_CALL_WOMAN"]
+TAIL_CALL_WOMAN2 = ids["TAIL_CALL_WOMAN2"]
+IS_CLONE_VAR = ids["IS_CLONE_VAR"]
+CAMMENU_CLICK_HAT = ids["CAMMENU_CLICK_HAT"]
+CAMMENU_KEY_HAT = ids["CAMMENU_KEY_HAT"]
+AI_ENABLED_VAR = ids["AI_ENABLED_VAR"]
+CAMLIST_ID = ids["CAMLIST_ID"]
 
 failures = []
 

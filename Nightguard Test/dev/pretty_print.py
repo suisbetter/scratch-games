@@ -79,6 +79,14 @@ def desc_block(bid, blocks, show_ids, depth=0):
         return f"{t}List.IndexOf({flds.get('LIST', [None])[0]}, {desc_input(ins.get('ITEM'), blocks, show_ids)})"
     if op == "sensing_mousedown":
         return f"{t}Sensing.MouseDown()"
+    if op == "sensing_mousex":
+        return f"{t}Sensing.MouseX()"
+    if op == "sensing_mousey":
+        return f"{t}Sensing.MouseY()"
+    if op == "motion_xposition":
+        return f"{t}Motion.XPosition()"
+    if op == "motion_yposition":
+        return f"{t}Motion.YPosition()"
     if op == "sensing_of":
         prop = flds.get("PROPERTY", [None])[0]
         obj = desc_input(ins.get("OBJECT"), blocks, show_ids)
@@ -89,8 +97,13 @@ def desc_block(bid, blocks, show_ids, depth=0):
         return f"{t}Costume.GetNumberName({flds.get('NUMBER_NAME', [None])[0]})"
     if op == "looks_costume":
         return f"{t}{flds.get('COSTUME', [None])[0]}"
-    if op == "sensing_touchingobjectmenu" or op == "control_create_clone_of_menu" or op == "sensing_of_object_menu":
-        key = "TOUCHINGOBJECTMENU" if "TOUCHINGOBJECTMENU" in flds else ("CLONE_OPTION" if "CLONE_OPTION" in flds else "OBJECT")
+    if op == "sensing_touchingobjectmenu" or op == "control_create_clone_of_menu" or op == "sensing_of_object_menu" \
+            or op == "sound_sounds_menu" or op == "motion_goto_menu":
+        key = ("TOUCHINGOBJECTMENU" if "TOUCHINGOBJECTMENU" in flds
+               else "CLONE_OPTION" if "CLONE_OPTION" in flds
+               else "OBJECT" if "OBJECT" in flds
+               else "SOUND_MENU" if "SOUND_MENU" in flds
+               else "TO")
         return f"{t}{flds.get(key, [None])[0]}"
     if op == "argument_reporter_string_number":
         return f"{t}{flds.get('VALUE', [None])[0]}"
@@ -162,6 +175,8 @@ def dump_stmt(bid, blocks, log, show_ids, depth=0, seen=None):
             log.append(f"{indent}{t}Looks.Show();")
         elif op == "looks_hide":
             log.append(f"{indent}{t}Looks.Hide();")
+        elif op == "looks_setsizeto":
+            log.append(f"{indent}{t}Looks.SetSizeTo({desc_input(ins['SIZE'], blocks, show_ids)});")
         elif op == "looks_seteffectto":
             log.append(f"{indent}{t}Looks.SetEffectTo({flds.get('EFFECT', [None])[0]}, {desc_input(ins.get('VALUE'), blocks, show_ids)});")
         elif op == "looks_gotofrontback":
