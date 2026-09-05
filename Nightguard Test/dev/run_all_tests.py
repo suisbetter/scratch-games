@@ -485,6 +485,63 @@ for mc in (1, 2):
         cammenu_ok = False
 check("CamMenu click and space-key hats behave identically via shared procedure", cammenu_ok)
 
+# ---------------------------------------------------------------
+# 9) Phone Guy voice system (session 6): hidden sprite owns the voice
+#    clips, Office's animatronic-detection handler broadcasts `phone warning`,
+#    and the warning handler survives execution (picks a 1-4 sound).
+# ---------------------------------------------------------------
+phone_ok = True
+warn_val = None
+pbcasts = []
+stage_t = data["targets"][0]
+pw_id = next((k for k, v in stage_t.get("broadcasts", {}).items() if v == "phone warning"), None)
+pg_t = next((t for t in data["targets"] if t["name"] == "PhoneGuy"), None)
+interp = Interpreter(data)
+if pw_id is None or pg_t is None:
+    phone_ok = False
+else:
+    pgb = pg_t["blocks"]
+    phone_ok = phone_ok and not pg_t["visible"] and len(pg_t["sounds"]) == 10 and len(pg_t["costumes"]) == 1
+    top_hats = [b for b in pgb.values() if isinstance(b, dict) and b.get("topLevel")]
+    phone_ok = phone_ok and len(top_hats) == 3  # greeting, hourly chain, warning handler
+    warn_hat = next((bid for bid, b in pgb.items()
+                     if isinstance(b, dict) and b.get("topLevel")
+                     and b["opcode"] == "event_whenbroadcastreceived"
+                     and b.get("fields", {}).get("BROADCAST_OPTION", [None, None])[0] == "phone warning"), None)
+    if warn_hat is None:
+        phone_ok = False
+    else:
+        try:
+            interp.run_stack("PhoneGuy", pgb[warn_hat]["next"], pgb)
+        except Exception:
+            phone_ok = False
+        wvid = next(vid for vid, e in pg_t["variables"].items() if e[0] == "warning")
+        warn_val = interp.varstate.get(wvid)
+        if str(warn_val) not in {"1", "2", "3", "4"}:
+            phone_ok = False
+    ob = interp.blocks_for("Office")
+    pbcasts = [b for b in ob.values()
+               if isinstance(b, dict) and b.get("opcode") == "event_broadcast"
+               and b.get("inputs", {}).get("BROADCAST_INPUT") == [1, [11, "phone warning", pw_id]]]
+    phone_ok = phone_ok and len(pbcasts) == 2
+    for pb in pbcasts:
+        # each new broadcast sits directly on an ambience sound_play
+        par = pb.get("parent")
+        if not (par in ob and ob[par].get("opcode") == "sound_play"):
+            phone_ok = False
+    # And the whole chain actually fires: animatronic spotted at an open door
+    # -> Office's forever handler broadcasts `phone warning`.
+    interp = Interpreter(data)
+    interp.liststate[camlist_id] = ["man(CAM1)", "CAM2", "CAM3", "CAM4", "CAM5", "CAM6", "CAM7", "CAM8"]
+    interp.varstate[interp.varname_to_id["leftdoorstate"]] = "open"
+    interp.varstate[interp.varname_to_id["rightdoorstate"]] = "open"
+    fired = []
+    interp.on_broadcast = lambda m: fired.append(m)
+    interp.run_stack("Office", ob[JUMPSCARE_GATE_HAT]["next"], ob)
+    phone_ok = phone_ok and "phone warning" in fired
+check("Phone Guy voice system: hidden sprite, 10 clips, 3 scripts, and Office warning broadcast all wired",
+      phone_ok, f"-> warning={warn_val} ambience-broadcasts={len(pbcasts)}")
+
 print()
 if failures:
     print(f"{len(failures)} FAILURE(S):", failures)

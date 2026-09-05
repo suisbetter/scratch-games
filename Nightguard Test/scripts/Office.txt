@@ -5,14 +5,16 @@ WhenBroadcastReceived(forever)
   If ((Not((leftdoorstate == 'closed')) And (Contains(camlist['1'], 'man') Or (Contains(camlist['1'], 'women1') Or Contains(camlist['1'], 'women2')))))
   {
     Looks.SwitchCostumeTo(costume8);
-    Sound.Play(sound_sounds_menu({'SOUND_MENU': ['fnaf-2-ambience-sound-effect', None]}));
+    Sound.Play(fnaf-2-ambience-sound-effect);
+    Event.Broadcast('phone warning');
   }
   Else
   {
     If ((Not((rightdoorstate == 'closed')) And (Contains(camlist['2'], 'man') Or (Contains(camlist['2'], 'women1') Or Contains(camlist['2'], 'women2')))))
     {
       Looks.SwitchCostumeTo(costume9);
-      Sound.Play(sound_sounds_menu({'SOUND_MENU': ['fnaf-2-ambience-sound-effect', None]}));
+      Sound.Play(fnaf-2-ambience-sound-effect);
+      Event.Broadcast('phone warning');
     }
   }
 }
@@ -27,7 +29,7 @@ WhenGreenFlagClicked()
   Motion.GoToXY('0', '0');
   Forever
   {
-    Motion.SetX(((motion_xposition({}) - ((sensing_mousex({}) + motion_xposition({})) / '30')) / '1.16'));
+    Motion.SetX(((Motion.XPosition() - ((Sensing.MouseX() + Motion.XPosition()) / '30')) / '1.16'));
     Event.Broadcast('forever');
   }
 }

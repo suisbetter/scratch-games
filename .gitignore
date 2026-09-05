@@ -3,3 +3,4 @@ private/
 __pycache__/
 *.pyc
 nightguard_extract/
+phone_audio/

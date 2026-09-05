@@ -529,3 +529,72 @@ was never designed to resolve. All prior tests still pass.
 17. `fix_v17_power_real_coercion.py` — power decrement rewritten as real 1/2/3-digit `Letter`/`Join` extraction, replacing v14's `power - 1` shortcut that only worked under this project's own (now-fixed) inaccurate test interpreter
 18. `fix_v18_camlist_clear_guard.py` — guarded each `rng *` procedure's clear-old-slot step so it can't erase a different animatronic's fresh mark
 19. `fix_v19_movement_paths.py` — gave `man`/`women1`/`women2` distinct movement patterns ("Rush"/"Patrol"/"Sweep")
+
+## Session 6 — Phone Guy voice calls (feature, not a bug fix)
+
+Requested: an AI voice based on the FNAF 1 Phone Guy for the Nightguard Test, with
+the classic triggers — a night-start greeting, hourly tips, and animatronic
+warnings when something shows up outside a door.
+
+### The voice clips
+
+Generated end-to-end by a script (`dev/gen_phone_audio.py`) rather than shipped
+as pre-recorded files: **edge-tts** (Microsoft's neural AI voices, no API key)
+with `en-US-GuyNeural`, slowed ~10% for the calm, slightly world-weary cadence.
+Each clip is then run through a **telephone bandpass** (~300 Hz–3.4 kHz,
+scipy `butter`/`lfilter`) so it sounds like the FNAF phone calls — a voice on a
+landline — and encoded as a small 48 kHz mono mp3 (lameenc). Output goes to
+`dev/phone_audio/` (gitignored; regenerated with `python gen_phone_audio.py`).
+
+**All dialogue is original, written in Phone Guy's *style* — no lines copied
+from the game** (avoids embroidering the existing DMCA-flagged FNAF assets any
+further than the user-approved rip already does). 10 clips:
+
+1. **Greeting** (plays ~2s after green flag): "Uh, hello? Hello hello! …"
+2. **Hourly tips `1 AM`–`5 AM`**, one per hour.
+3. **Four random warning clips** fired when an animatronic is spotted outside an
+   open door.
+
+### Wiring (`dev/install_phone_guy.py`)
+
+- New **hidden `PhoneGuy` sprite** (1px invisible costume) owns all 10 mp3s plus
+  three scripts: the greeting, a sequential `Wait Until (time == 'N AM')` chain
+  for the hourly tips (the existing `time` clock already ticks every 60s), and
+  the warning handler.
+- The warning handler sets sprite-local `warning = pick random(1, 4)` then runs
+  four `If (warning == N) { play warning N until done }` branches. It plays with
+  **`play sound until done`**, which matters beyond style: while that handler is
+  busy, a re-broadcast of `phone warning` can't restart it (Scratch drops events
+  into already-running scripts), so a linging animatronic re-triggers a new
+  warning only when the previous one finishes — no per-frame audio spam.
+- **Office's existing detection handler** (the `forever` broadcasts that already
+  play the ambience when an animatronic is outside an open door) now also
+  broadcasts `phone warning` right after each ambience sound, in both the left
+  and right door branches.
+- The new broadcast `phone warning` is registered on Stage; the new sprite-local
+  variable `warning` lives on PhoneGuy.
+- No game logic changed: power/time/doors/animatronics are untouched.
+
+### Tooling additions
+
+- `dev/repack_sb3.py` now also copies newly staged `<md5>.mp3` / `<md5>.svg`
+  files from `dev/phone_audio/` into the sb3 zip (the layout assets are named by
+  their content md5, matching how Scratch stores sounds/costumes).
+- `dev/interpreter.py` gained `math_number` (a literal reporter) and
+  `sound_playuntildone` (no-op, same as `sound_play`) so it can run the new
+  PhoneGuy blocks honestly; `run_all_tests.py` gained a **Test 9** that asserts:
+  PhoneGuy is hidden with exactly 10 clips + 1 costume and exactly 3 top-level
+  scripts, that Office has exactly 2 `phone warning` broadcasts each sitting
+  directly on an ambience `sound_play`, that the warning handler executes to a
+  valid `1`–`4` pick under the interpreter's deterministic midpoint random, and
+  that the full chain fires (animatronic at cam 1 + left door open →
+  `phone warning` broadcast). All prior tests still pass unmodified.
+
+### Reproducing this session
+
+```
+python gen_phone_audio.py      # regenerate the 10 voice clips
+python install_phone_guy.py    # apply the sprite + Office wiring to a fresh extract
+python regen_scripts_txt.py PhoneGuy Office
+python repack_sb3.py           # put it all back in ../sb3/1287939979.sb3
+```

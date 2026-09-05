@@ -126,6 +126,8 @@ class Interpreter:
             if float(lo).is_integer() and float(hi).is_integer():
                 return int(round(mid))  # Scratch picks a whole number when both bounds are whole
             return mid
+        if op == "math_number":
+            return flds["NUM"][0]
         if op == "sensing_mousedown":
             return self.mock_mousedown
         if op == "sensing_touchingobject":
@@ -197,6 +199,7 @@ class Interpreter:
                 self.log.append(f"{sprite}: WAIT {dur}")
             elif op in ("looks_show", "looks_hide", "looks_gotofrontback", "looks_seteffectto",
                         "motion_gotoxy", "motion_goto", "motion_changexby", "sound_play",
+                        "sound_playuntildone",
                         "control_create_clone_of", "data_addtolist", "data_deletealloflist",
                         "data_replaceitemoflist", "data_showlist", "data_hidelist"):
                 if op == "data_addtolist":

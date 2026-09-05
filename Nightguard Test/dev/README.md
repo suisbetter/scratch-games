@@ -44,6 +44,17 @@ python regen_scripts_txt.py Door CamMenu Office Animatronics
 python repack_sb3.py
 ```
 
+## Phone Guy voice (session 6)
+
+The voice system is added after the fix pipeline, from a fresh extraction:
+
+```
+python gen_phone_audio.py      # synthesize the 10 voice clips into phone_audio/ (edge-tts + telephone filter, gitignored)
+python install_phone_guy.py    # add the hidden PhoneGuy sprite + Office warning-broadcast wiring
+python regen_scripts_txt.py PhoneGuy Office
+python repack_sb3.py           # also adds the newly staged <md5>.mp3/.svg assets into the sb3
+```
+
 Each script edits `nightguard_extract/project.json` in place and re-validates block-graph integrity
 (every `next`/`parent`/input reference resolves to a real block) before writing. Run them in this
 exact order against a **fresh** extraction of the original `project.json` — several later scripts
