@@ -598,3 +598,67 @@ python install_phone_guy.py    # apply the sprite + Office wiring to a fresh ext
 python regen_scripts_txt.py PhoneGuy Office
 python repack_sb3.py           # put it all back in ../sb3/1287939979.sb3
 ```
+
+## Session 6.1 — Phone Guy re-voiced with ElevenLabs, plus radio static
+
+Follow-up on session 6: swap the voice from Microsoft edge-tts to ElevenLabs,
+with the classic phone-call **static** on top of the existing telephone
+bandpass, and finish it end-to-end rather than leaving any placeholder wiring.
+
+### Why the voice
+
+`dev/gen_phone_audio.py` now calls the **ElevenLabs TTS API** (key read from the
+gitignored `dev/.env`, never committed) using **`Chris - Charming,
+Down-to-Earth`**, a platform premade voice (middle-aged American male, casual,
+conversational) — the closest match the account's free tier can actually
+synthesize. Several nearer clones from the Voice Library (`Plain`,
+`Ben - Deep, Warm, Conversational`, …) were tried first but the API rejects all
+library voices on free tier ("Free users cannot use library voices via the
+API"). If the account is ever upgraded, the `.env`-read key + `VOICE_ID` at the
+top of `gen_phone_audio.py` are the only things to change.
+
+### The audio pipeline gained a static layer
+
+Same post-processing as before (telephone bandpass ~300 Hz–3.4 kHz, 48 kHz mono
+mp3 via lameenc), now with two added layers so the clips sound like a worn
+landline/radio call rather than a clean studio take:
+
+- **Radio static / hiss**: white noise bandpassed 1.5–9 kHz (above the voice
+  band, like AM hiss), mixed at `-30 dB` relative to the voice peak.
+- **Sparse crackle pops**: occasional short decaying pops (~0.7 per second,
+  `-36 dB`), the "worn recording" artifact of the game's night calls.
+
+Both are pure DSP on the synthesized audio (`scipy` + `numpy`), scaled to each
+clip's own peak so nothing clips; the whole clip is soft-clipped to `[-1, 1]`
+before encoding.
+
+### Proper, complete swap (no half-done state)
+
+The sprite's blocks reference sounds **by name** (`sound_sounds_menu` shadow
+fields), so swapping audio changed no blocks — only the `sounds[]` metadata
+(`assetId`/`md5ext`/`sampleCount`) plus the zip's asset entries:
+
+- New `dev/swap_phone_sounds.py`: rewrites each PhoneGuy sound entry to the new
+  manifest's md5/stats and deletes the stale staged `<md5>.mp3` files.
+- `dev/repack_sb3.py` rewritten to **rebuild the sb3 from the project.json's
+  asset references** instead of copying the old zip and only adding new files.
+  The 10 orphaned old clips are dropped from the zip (were left behind by the
+  previous copy-everything repack), so the sb3 contains exactly
+  `project.json` + the 48 assets it references, no duplicates, no stale entries.
+- `manifest.json` now records provider/voice-id/model/voice-settings and the
+  effect chain; each clip entry carries its source `phone_*.mp3` and staged
+  `md5ext`.
+- Re-validated end to end: `run_all_tests.py` (32 checks, all passing —
+  PhoneGuy still hidden, exactly 10 clips, 3 scripts, Office broadcasts wired),
+  the sb3 still passes the official scratch-parser sb3 schema (jsonschema,
+  draft-4 semantics, same as TurboWarp), and the zip integrity check reports no
+  corrupt or duplicate entries.
+
+### Reproducing this session
+
+```
+python gen_phone_audio.py      # regenerate the 10 clips (ElevenLabs + bandpass + static)
+python swap_phone_sounds.py    # point PhoneGuy's sounds[] at the new clips
+python repack_sb3.py           # rebuild the sb3, dropping unreferenced old audio
+python run_all_tests.py        # 32 checks
+```

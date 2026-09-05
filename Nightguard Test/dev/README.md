@@ -44,19 +44,34 @@ python regen_scripts_txt.py Door CamMenu Office Animatronics
 python repack_sb3.py
 ```
 
-## Phone Guy voice (session 6)
+## Phone Guy voice (session 6, re-voiced in 6.1)
 
 The voice system is added after the fix pipeline, from a fresh extraction:
 
 ```
-python gen_phone_audio.py      # synthesize the 10 voice clips into phone_audio/ (edge-tts + telephone filter, gitignored)
+# create dev/.env with ELEVENLABS_API_KEY=sk_...  (gitignored, key never committed)
+python gen_phone_audio.py      # synthesize the 10 clips into phone_audio/ (ElevenLabs voice
+                               #   'Chris - Down-to-Earth' + telephone bandpass + radio static,
+                               #   gitignored)
 python install_phone_guy.py    # add the hidden PhoneGuy sprite + Office warning-broadcast wiring
 python regen_scripts_txt.py PhoneGuy Office
-python repack_sb3.py           # also adds the newly staged <md5>.mp3/.svg assets into the sb3
+python repack_sb3.py           # rebuild the sb3; new staged <md5>.mp3/.svg assets get included,
+                               #   unreferenced old ones dropped
+```
+
+Re-voicing an already-installed project (e.g. a different ElevenLabs voice or
+effect settings) only regenerates audio — the blocks reference sounds by name,
+so no block changes are needed:
+
+```
+python gen_phone_audio.py      # new voice/effect -> new clips + manifest
+python swap_phone_sounds.py    # rewrite PhoneGuy's sounds[] metadata + clean stale staged files
+python repack_sb3.py
+python run_all_tests.py
 ```
 
 Each script edits `nightguard_extract/project.json` in place and re-validates block-graph integrity
-(every `next`/`parent`/input reference resolves to a real block) before writing. Run them in this
+(ever `next`/`parent`/input reference resolves to a real block) before writing. Run them in this
 exact order against a **fresh** extraction of the original `project.json` — several later scripts
 assume specific block ids created or rewired by earlier ones.
 
@@ -72,8 +87,10 @@ earlier version of this file had one, which let a real bug (arithmetic done dire
 while still breaking in the real engine -- see `CHANGES.md`'s session-4 writeup. `pretty_print.py` renders block graphs as readable pseudocode (used by
 `regen_scripts_txt.py` to regenerate `../scripts/*.txt`). `block_builder.py` has the
 block-construction helpers the `fix_*.py` scripts use. `repack_sb3.py` writes
-`nightguard_extract/project.json` back into `../sb3/1287939979.sb3`, copying every other zip entry
-(costumes/sounds) byte-for-byte. `regen_scripts_txt.py` only handles sprites with real block
+`nightguard_extract/project.json` back into `../sb3/1287939979.sb3`, rebuilding
+the zip from the project's actual asset references (so replaced audio drops its
+orphaned old entries rather than accumulating them). `regen_scripts_txt.py` only
+handles sprites with real block
 scripts (it uses `pretty_print.py`'s generic block dumper) -- `Stage.txt` has no blocks (it's the
 Variables/Lists/Costumes/Sounds listing) and needs hand-editing if `Stage`'s variables or lists
 change; running `regen_scripts_txt.py Stage` will blank out its Variables/Lists sections.

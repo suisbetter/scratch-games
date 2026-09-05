@@ -1,27 +1,57 @@
-"""Generate the Phone Guy voice clips for the Nightguard Test.
+"""Generate the Phone Guy voice clips for the Nightguard Test with ElevenLabs.
 
-Each clip is synthesized with Microsoft's neural AI voice (edge-tts), slowed
-slightly, then run through a telephone bandpass (~300 Hz-3.4 kHz) so it sounds
-like FNAF's phone calls (voice on a landline), and encoded as a small 48 kHz
-mp3 (lameenc). Outputs land in dev/phone_audio/ as phone_<key>.mp3 plus a
-manifest.json describing each clip for install_phone_guy.py.
+Voice: 'Chris - Charming, Down-to-Earth' (iP95p4xoKVk53GoZ742B), an
+ElevenLabs platform premade voice -- the closest one the free tier can
+actually synthesize to FNAF's Phone Guy (middle-aged American male, casual,
+conversational, down-to-earth). The closer library clones ('Plain', 'Ben -,
+Deep, Warm, Conversational', etc.) all require a paid plan via the API
+("Free users cannot use library voices via the API").
+
+Processing pipeline (makes the TTS audio sound like a man calling in on a
+worn landline, as in the game's night calls):
+
+1. TTS -> decode float mono   (ElevenLabs returns 44.1 kHz mp3)
+2. resample to 48 kHz
+3. telephone bandpass  ~300-3400 Hz  (voice-band roll-off)
+4. add radio static / hiss  -> high-frequency noise floor
+5. add sparse vinyl-style crackle pops  (worn recording feel)
+6. mild soft-clip + normalise, encode 48 kHz mono mp3 (lameenc)
+
+Outputs land in dev/phone_audio/ as phone_<key>.mp3 (for human inspection)
+plus md5-named copies ready for the sb3 zip, and a manifest.json describing
+each clip for install_phone_guy.py / swap_phone_sounds.py.
+
+Run after adding your ELEVENLABS_API_KEY to dev/.env (gitignored) and before
+`python install_phone_guy.py` / `python repack_sb3.py`.
 """
-import asyncio
+import hashlib
 import json
 import os
+import shutil
 
-import edge_tts
 import lameenc
 import numpy as np
+import requests
 import scipy.signal
 import soundfile
 
-VOICE = "en-US-GuyNeural"
-RATE = "-10%"
-VOLUME = "+0%"
+VOICE_ID = "iP95p4xoKVk53GoZ742B"
+VOICE_NAME = "Chris - Charming, Down-to-Earth"
+MODEL_ID = "eleven_multilingual_v2"
+VOICE_SETTINGS = {
+    "stability": 0.6,
+    "similarity_boost": 0.8,
+    "style": 0.3,
+    "use_speaker_boost": True,
+}
 TARGET_RATE = 48000
 BIT_RATE = 96
+TELEPHONE_LOW = 300
+TELEPHONE_HIGH = 3400
+STATIC_GAIN_DB = -30.0  # hiss level relative to voice peak
+CRACKLE_GAIN_DB = -36.0  # pop level relative to voice peak
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "phone_audio")
+ENV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
 
 CLIPS = [
     (
@@ -89,34 +119,75 @@ CLIPS = [
 ]
 
 
-def telephone_telephone(data, sr):
-    b, a = scipy.signal.butter(2, [300, 3400], btype="bandpass", fs=sr)
+def load_key():
+    if os.path.exists(ENV_PATH):
+        for line in open(ENV_PATH, encoding="utf-8"):
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, _, v = line.partition("=")
+                if k.strip() == "ELEVENLABS_API_KEY":
+                    return v.strip()
+        raise SystemExit("ELEVENLABS_API_KEY not found in dev/.env")
+    key = os.environ.get("ELEVENLABS_API_KEY")
+    if not key:
+        raise SystemExit("set ELEVENLABS_API_KEY (env or dev/.env)")
+    return key
+
+
+def synthesize(text):
+    """Call the ElevenLabs API for one clip; return (float samples, sr)."""
+    key = load_key()
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"
+    r = requests.post(
+        url,
+        headers={"xi-api-key": key, "Content-Type": "application/json"},
+        json={"text": text, "model_id": MODEL_ID, "voice_settings": VOICE_SETTINGS},
+        timeout=120,
+    )
+    if r.status_code != 200:
+        raise RuntimeError(f"TTS failed ({r.status_code}): {r.text[:300]}")
+    tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_pg_tts_tmp.mp3")
+    with open(tmp, "wb") as f:
+        f.write(r.content)
+    try:
+        samples, sr = soundfile.read(tmp)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+    return samples, sr
+
+
+def telephone_bandpass(data, sr):
+    b, a = scipy.signal.butter(2, [TELEPHONE_LOW, TELEPHONE_HIGH], btype="bandpass", fs=sr)
     return scipy.signal.lfilter(b, a, data)
 
 
-async def synthesize(text):
-    communicate = edge_tts.Communicate(text, VOICE, rate=RATE, volume=VOLUME)
-    with tempfile_at() as path:
-        await communicate.save(path)
-        samples, sr = soundfile.read(path)
-        return samples, sr
+def add_static_and_crackle(data, sr):
+    """Radio-hiss + sporadic record pops, scaled to the voice peak."""
+    n = data.shape[0]
+    peak = float(np.max(np.abs(data), initial=1e-9))
 
+    hiss = np.random.default_rng(0).standard_normal(n)
+    b, a = scipy.signal.butter(2, [1500, 9000], btype="bandpass", fs=sr)
+    hiss = scipy.signal.lfilter(b, a, hiss)
+    if np.max(np.abs(hiss), initial=1e-9) > 0:
+        hiss *= (peak * 10 ** (STATIC_GAIN_DB / 20)) / np.max(np.abs(hiss), initial=1e-9)
 
-class tempfile_at:
-    """Minimal temp-file helper so edge_tts has a .mp3 path to write to."""
+    crackles = np.zeros(n)
+    rng = np.random.default_rng(7)
+    pops = int(round(n / sr * 1.2))
+    for _ in range(pops):
+        if rng.random() < 0.7:
+            start = int(rng.integers(0, n))
+            dur = int(sr * rng.uniform(0.002, 0.010))
+            end = min(start + dur, n)
+            if end > start:
+                env = np.exp(-np.arange(end - start) / (sr * 0.0015))
+                crackles[start:end] += rng.standard_normal(end - start) * env
+    if np.max(np.abs(crackles), initial=1e-9) > 0:
+        crackles *= (peak * 10 ** (CRACKLE_GAIN_DB / 20)) / np.max(np.abs(crackles), initial=1e-9)
 
-    def __init__(self):
-        import tempfile
-
-        self.path = os.path.join(tempfile.gettempdir(), "pg_voice.mp3")
-
-    def __enter__(self):
-        return self.path
-
-    def __exit__(self, *exc):
-        if os.path.exists(self.path):
-            os.remove(self.path)
-        return False
+    return np.clip(data + hiss + crackles, -1.0, 1.0)
 
 
 def encode_mp3(pcm16, rate):
@@ -128,29 +199,52 @@ def encode_mp3(pcm16, rate):
     return encoder.encode(pcm16.tobytes()) + encoder.flush()
 
 
+def md5_bytes(data):
+    return hashlib.md5(data).hexdigest()
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    manifest = {"voice": VOICE, "rate": str(RATE), "sample_rate": TARGET_RATE, "clips": {}}
+    manifest = {
+        "provider": "elevenlabs",
+        "voice_id": VOICE_ID,
+        "voice": VOICE_NAME,
+        "model": MODEL_ID,
+        "voice_settings": VOICE_SETTINGS,
+        "effect": {
+            "resample_hz": TARGET_RATE,
+            "telephone_bandpass_hz": [TELEPHONE_LOW, TELEPHONE_HIGH],
+            "static_gain_db": STATIC_GAIN_DB,
+            "crackle_gain_db": CRACKLE_GAIN_DB,
+        },
+        "clips": {},
+    }
     for key, display, text in CLIPS:
-        out_name = f"phone_{key}.mp3"
-        out_path = os.path.join(OUT_DIR, out_name)
-        raw, src_rate = asyncio.run(synthesize(text))  # float in [-1, 1]
+        raw, src_rate = synthesize(text)  # float in [-1, 1], possibly stereo
         mono = raw if raw.ndim == 1 else np.mean(raw, axis=1)
         mono = scipy.signal.resample_poly(mono, TARGET_RATE, src_rate)
-        filtered = telephone_telephone(mono, TARGET_RATE)
-        filtered = np.clip(filtered, -1.0, 1.0)
-        pcm = np.int16(np.round(filtered * 32767))
+        filtered = telephone_bandpass(mono, TARGET_RATE)
+        finished = add_static_and_crackle(filtered, TARGET_RATE)
+        pcm = np.int16(np.round(finished * 32767))
         mp3_bytes = encode_mp3(pcm, TARGET_RATE)
+
+        out_name = f"phone_{key}.mp3"
+        out_path = os.path.join(OUT_DIR, out_name)
         with open(out_path, "wb") as f:
             f.write(mp3_bytes)
+        digest = md5_bytes(mp3_bytes)
+        staged_name = f"{digest}.mp3"
+        shutil.copy2(out_path, os.path.join(OUT_DIR, staged_name))
+
         duration = pcm.shape[0] / TARGET_RATE
         manifest["clips"][key] = {
             "name": display,
             "file": out_name,
             "duration_s": round(duration, 2),
             "sample_count": int(pcm.shape[0]),
+            "md5ext": staged_name,
         }
-        print(f"wrote {out_name}: {duration:.2f}s, {len(mp3_bytes)} bytes")
+        print(f"wrote {out_name}: {duration:.2f}s, {len(mp3_bytes)} bytes -> {staged_name}")
     with open(os.path.join(OUT_DIR, "manifest.json"), "w") as f:
         json.dump(manifest, f, indent=2)
     print(f"manifest written to {OUT_DIR}/manifest.json")
