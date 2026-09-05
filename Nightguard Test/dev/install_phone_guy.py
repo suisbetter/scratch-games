@@ -207,7 +207,7 @@ def main():
     phone_guy = {
         "isStage": False,
         "name": "PhoneGuy",
-        "variables": {warn_id: [WARN_VAR_NAME, "", False]},
+        "variables": {warn_id: [WARN_VAR_NAME, ""]},
         "lists": {},
         "broadcasts": {bid: BROADCAST_NAME},
         "blocks": bp,

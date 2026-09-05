@@ -502,6 +502,10 @@ if pw_id is None or pg_t is None:
 else:
     pgb = pg_t["blocks"]
     phone_ok = phone_ok and not pg_t["visible"] and len(pg_t["sounds"]) == 10 and len(pg_t["costumes"]) == 1
+    # sb3 schema: sprite-local variable entries are [name, value]; the cloud
+    # flag ([name, value, true]) is a Stage/cloud only. A spurious `false` here
+    # makes TurboWarp reject the whole sb3.
+    phone_ok = phone_ok and all(len(v) == 2 for v in pg_t["variables"].values())
     top_hats = [b for b in pgb.values() if isinstance(b, dict) and b.get("topLevel")]
     phone_ok = phone_ok and len(top_hats) == 3  # greeting, hourly chain, warning handler
     warn_hat = next((bid for bid, b in pgb.items()

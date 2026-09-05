@@ -25,15 +25,28 @@ def staged_assets():
 with open(PROJECT_JSON, "rb") as f:
     new_project_json = f.read()
 
+written = set()  # zip entry names; sb3 layout assets are md5-named so entries must stay unique
+
+
+def write_entry(zout, item, data):
+    if item.filename in written:
+        return  # de-duplicate: a re-repack of an already-packed sb3 must not add copies
+    written.add(item.filename)
+    zout.writestr(item, data, compress_type=zipfile.ZIP_DEFLATED)
+
+
 with zipfile.ZipFile(SB3, "r") as zin, zipfile.ZipFile(TMP, "w", zipfile.ZIP_DEFLATED) as zout:
     for item in zin.infolist():
         if item.filename == "project.json":
             data = new_project_json
         else:
             data = zin.read(item.filename)
-        zout.writestr(item, data, compress_type=zipfile.ZIP_DEFLATED)
+        write_entry(zout, item, data)
     for name in staged_assets():
+        if name in written:
+            continue  # already present in the original sb3 (idempotent re-runs)
         zout.write(os.path.join(NEW_ASSET_DIR, name), arcname=name)
+        written.add(name)
 
 shutil.move(TMP, SB3)
 print(f"Repacked {SB3} with project.json ({len(new_project_json)} bytes) "
@@ -42,5 +55,8 @@ print(f"Repacked {SB3} with project.json ({len(new_project_json)} bytes) "
 with zipfile.ZipFile(SB3) as z:
     bad = z.testzip()
     assert bad is None, f"corrupt entry: {bad}"
+    names = z.namelist()
+    dupes = {n for n in names if names.count(n) > 1}
+    assert not dupes, f"duplicate zip entries: {dupes}"
     assert len(z.read("project.json")) == len(new_project_json)
     print("Repack verified OK.")
