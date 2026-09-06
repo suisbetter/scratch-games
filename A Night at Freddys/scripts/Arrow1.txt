@@ -32,11 +32,6 @@ WhenBroadcastReceived(door opening)
 
 WhenBroadcastReceived(entering the funtimes)
 {
-    Looks.Show();
-}
-
-WhenBroadcastReceived(entering the funtimes)
-{
     Looks.Hide();
 }
 
