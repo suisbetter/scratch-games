@@ -26,16 +26,6 @@ WhenGreenFlagClicked()
 
 //----- Broadcast received events -------------------------------------------------------------------------------------
 
-WhenBroadcastReceived(hide)
-{
-    Looks.Show();
-    Looks.ClearGraphicEffects();
-    Repeat Until (nights == 1)
-    {
-        Sound.PlayUntilDone(FNaF_ Sister Location Title Screen _ SL Menu Music _ Five Nights at Freddy's);
-    }
-}
-
 WhenBroadcastReceived(jumpscare)
 {
     aggression factor = 0;

@@ -4,4 +4,5 @@ __pycache__/
 *.pyc
 nightguard_extract/
 phone_audio/
+A Night at Freddys/dev/extract/
 .env

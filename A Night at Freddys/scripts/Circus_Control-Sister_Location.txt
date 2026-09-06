@@ -41,11 +41,6 @@ WhenKeyPressed(b)
 
 //----- Broadcast received events -------------------------------------------------------------------------------------
 
-WhenBroadcastReceived(hide)
-{
-    Looks.Hide();
-}
-
 WhenBroadcastReceived(in circus control)
 {
     Sound.Play(Door-Me_58G_HD2-29632);

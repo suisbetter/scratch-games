@@ -24,12 +24,6 @@ WhenBroadcastReceived(entering the funtimes)
     }
 }
 
-WhenBroadcastReceived(hide)
-{
-    Looks.Hide();
-}
-
-
 //----- Costumes ------------------------------------------------------------------------------------------------------
 
 arrow1-d.svg

@@ -22,11 +22,6 @@ WhenBroadcastReceived(enter funtime auditorium)
     }
 }
 
-WhenBroadcastReceived(hide)
-{
-    Looks.Hide();
-}
-
 WhenBroadcastReceived(primary control module)
 {
     Sound.PlayUntilDone(Door-Me_58G_HD2-29632);

@@ -32,11 +32,6 @@ WhenGreenFlagClicked()
 
 //----- Broadcast received events -------------------------------------------------------------------------------------
 
-WhenBroadcastReceived(hide)
-{
-    Looks.Show();
-}
-
 WhenBroadcastReceived(night 1)
 {
     Repeat (10)

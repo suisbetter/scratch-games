@@ -41,13 +41,6 @@ WhenBroadcastReceived(surprise ending)
 }
 
 
-//----- Orphaned blocks -----------------------------------------------------------------------------------------------
-
-Event.Broadcast("surprise ending");
-
-Sound.StopAllSounds();
-
-
 //----- Costumes ------------------------------------------------------------------------------------------------------
 
 FnafSisterLocationSpringtrapcutscene-ezgif7.png

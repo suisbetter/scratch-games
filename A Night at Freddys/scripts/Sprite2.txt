@@ -40,12 +40,6 @@ WhenThisSpriteClicked()
 
 //----- Broadcast received events -------------------------------------------------------------------------------------
 
-WhenBroadcastReceived(hide)
-{
-    Looks.Show();
-    Looks.SwitchBackdropTo(download (1));
-}
-
 WhenBroadcastReceived(night 1)
 {
     Looks.Hide();
